@@ -1,0 +1,11 @@
+# Same corruption stack for train and valid; valid needs it too, or mask_denoise averages over an empty
+# mask and returns NaN.
+train: &stack
+  - _target_: src.data.imu.transform.AddGravity
+  - _target_: src.data.imu.transform.AddNoise
+    acc_noise_density : 1.e-2
+    gyro_noise_density: 3.e-4
+  - _target_: src.data.imu.transform.AddBias
+    acc_bias_randwalk : 5.e-4
+    gyro_bias_randwalk: 5.e-5
+valid: *stack

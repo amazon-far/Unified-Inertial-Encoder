@@ -1,0 +1,16 @@
+# @package _global_
+# EXP18-discrete: model-design ablation, exp15_full_train_C with the discrete Conv1D tokenizer.
+# Usage: python -m src.train experiment=exp18_arch_discrete
+defaults:
+  - exp15_full_train_C
+  - override /model/tokenizer: conv_4reg_tokenizer
+
+model:
+  token_size: 25       # samples per token; must be a perfect square (5x5 conv fold)
+  token_unit: sample
+
+trainer:
+  max_epochs: 20
+
+wandb:
+  runid: Exp18_Arch_Discrete

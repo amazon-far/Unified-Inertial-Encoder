@@ -1,0 +1,7 @@
+# IMU2CLIP contrastive IMU encoder (thirdparty/imu2clip MW2StackRNNPooling), see src/model/imu2clip.py.
+# size_embeddings is 768 to match the cached CLIP ViT-L/14@336px text embeddings.
+_target_       : src.model.imu2clip.IMU2CLIP
+size_embeddings: 768
+target_len     : 1000    # samples per run fed to the conv+GRU stack (~5 s @ 200 Hz)
+input_dim      : 32      # MW2StackRNNPooling conv width (paper default)
+chunk          : 4096    # max sensor runs encoded per forward (a whole eval take is many windows)

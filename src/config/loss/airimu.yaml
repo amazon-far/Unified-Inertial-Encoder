@@ -1,0 +1,7 @@
+# Official AirIMU integration loss (EuRoC weights): Huber on rot/vel/pos errors + covariance NLL.
+_target_   : src.model.airimu.AirIMU_Loss
+rot_weight : 1.0e3
+vel_weight : 1.0e1
+pos_weight : 1.0e2
+cov_weight : 1.0e-4
+huber_delta: 0.005

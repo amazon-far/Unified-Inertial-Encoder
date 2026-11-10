@@ -1,0 +1,3 @@
+# IMU2CLIP optimizer (paper default); covers the encoder and the loss's learned temperature.
+_target_: torch.optim.Adam
+lr      : 2.e-4

@@ -1,0 +1,12 @@
+# Discrete Conv1D tokenizer (fixed sample-count patches) with 4 register tokens.
+_target_: src.model.tokenizer.AddRegister
+output_dim    : ${model.token_dim}
+num_register  : 4
+
+base_tokenizer:
+  _target_: src.model.tokenizer.Conv1DTokenizer
+
+  output_dim: ${model.token_dim}
+  token_size: ${model.token_size}
+  activation: silu
+  num_trunk_features: ${len:${model.feature_from_trunk}} # decoder-head input width multiplier

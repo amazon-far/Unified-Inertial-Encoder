@@ -1,0 +1,3 @@
+# Official TLIO optimizer; the ReduceLROnPlateau scheduler is attached by LitTLIO.configure_optimizers.
+_target_: torch.optim.Adam
+lr      : 1.e-4

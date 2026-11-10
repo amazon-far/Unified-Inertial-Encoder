@@ -1,0 +1,3 @@
+# AirIMU correction network (src.model.airimu): body-frame IMU -> per-interval acc/gyro corrections + covariances.
+_target_   : src.model.airimu.AirIMU
+window_size: ${data_conf.window_size}

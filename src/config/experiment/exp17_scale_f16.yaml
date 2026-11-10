@@ -1,0 +1,18 @@
+# @package _global_
+# EXP17-f16: data-scaling ablation, exp15_full_train_C on a nested 1/16 subset of the train sequences of every corpus.
+# Usage: python -m src.train experiment=exp17_scale_f16
+defaults:
+  - exp15_full_train_C
+
+data_conf:
+  subsample: 0.0625
+
+trainer:
+  max_epochs: 1024
+  check_val_every_n_epoch: 16
+
+meta:
+  ckpt_every_n_epochs: 16
+
+wandb:
+  runid: Exp17_Scale_f16

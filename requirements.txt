@@ -1,0 +1,44 @@
+# Training and data preprocessing (Python 3.14)
+torch
+numpy>=2.2
+scipy
+h5py
+fsspec
+pypose
+lightning
+jaxtyping
+hydra-core
+PyYAML
+rich
+wandb
+beartype
+ml_dtypes
+typing_extensions
+rerun_sdk==0.40.0
+trimesh
+yourdfpy
+pytorch-kinematics
+
+# Language encoders and baseline adapters
+clip @ git+https://github.com/openai/CLIP.git@d05afc436d78f1c48dc0dbf8e5980a9d471f35f6
+timm
+iopath
+ftfy
+einops
+
+# Paper analyses and visualizations
+pandas
+matplotlib
+pillow
+scikit-learn
+opencv-python-headless
+
+# Language annotation through the public Bedrock API
+anthropic[bedrock]
+boto3
+
+# Checks and extension builds
+pytest
+pyright
+ninja
+psutil

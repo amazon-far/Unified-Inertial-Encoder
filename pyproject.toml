@@ -1,0 +1,16 @@
+[tool.pyright]
+include = ["src", "tests"]
+extraPaths = ["./thirdparty/tartanimu"]
+exclude = [
+    "./assets",                                 # Thirdparty libraries
+    "./thirdparty",                             # Upstream submodules are checked separately
+    "**/node_modules",                          # Default settings
+    "**/__pycache__" ,                          # Default settings
+    "**/.*",                                    # Default settings
+]
+typeCheckingMode = "standard"
+reportDuplicateImport    = "error"          # Bad practice.
+reportAbstractUsage      = "error"          # Will crash on runtime.
+reportMatchNotExhaustive = "error"          # Bad practice.
+reportPrivateImportUsage = "none"           # PyTorch (specifically torch.optim) problem
+reportMissingImports     = "warning"        # Some module is optional for user / not available in dev env.

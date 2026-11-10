@@ -1,0 +1,71 @@
+# Root (pelvis) IMU + joint caches (rootjoint_v1, written by src.scripts.rootjoint_process),
+# with the corpus split and transform-slot layout of all_data.yaml. SuperOdom clips are valid-only.
+defaults:
+  - transform@nymeria_t      : human_xsens
+  - transform@naturalmotion_t: human_xsens
+  - transform@bones_soma_t   : human_xsens
+  - transform@bones_g1_t     : humanoid_bones
+  # Real robot signal already carries gravity; a corruption stack would add it twice.
+  - transform@superodom_t    : empty
+  - window                   : random
+  - _self_
+
+train:
+  - _target_   : src.data.util.build_corpus
+    _recursive_: false
+    reader     : {_target_: src.data.joint.rootjoint_sequence.RootJoint_IMU_Sequence, joints: relative}
+    root       : "${machine-conf:cache_root}/rootjoint_v1/nymeria"
+    stems      : src/config/data/stems/nymeria_train.txt
+    layers     : ["${data.nymeria_t.train}", "${data.window.train}"]
+  - _target_   : src.data.util.build_corpus
+    _recursive_: false
+    reader     : {_target_: src.data.joint.rootjoint_sequence.RootJoint_IMU_Sequence, joints: relative}
+    root       : "${machine-conf:cache_root}/rootjoint_v1/naturalmotion"
+    stems      : src/config/data/stems/naturalmotion_train.txt
+    layers     : ["${data.naturalmotion_t.train}", "${data.window.train}"]
+  - _target_   : src.data.util.build_corpus
+    _recursive_: false
+    reader     : {_target_: src.data.joint.rootjoint_sequence.RootJoint_IMU_Sequence, joints: relative}
+    root       : "${machine-conf:cache_root}/rootjoint_v1/bones_g1"
+    stems      : src/config/data/stems/bones_segments/bones_g1_train.txt
+    layers     : ["${data.bones_g1_t.train}", "${data.window.train}"]
+  - _target_   : src.data.util.build_corpus
+    _recursive_: false
+    reader     : {_target_: src.data.joint.rootjoint_sequence.RootJoint_IMU_Sequence, joints: relative}
+    root       : "${machine-conf:cache_root}/rootjoint_v1/bones_soma"
+    stems      : src/config/data/stems/bones_segments/bones_soma_train.txt
+    layers     : ["${data.bones_soma_t.train}", "${data.window.train}"]
+
+valid:
+  - _target_   : src.data.util.build_corpus
+    _recursive_: false
+    reader     : {_target_: src.data.joint.rootjoint_sequence.RootJoint_IMU_Sequence, joints: relative}
+    root       : "${machine-conf:cache_root}/rootjoint_v1/nymeria"
+    stems      : src/config/data/stems/nymeria_valid.txt
+    layers     : ["${data.nymeria_t.valid}", "${data.window.valid}"]
+  - _target_   : src.data.util.build_corpus
+    _recursive_: false
+    reader     : {_target_: src.data.joint.rootjoint_sequence.RootJoint_IMU_Sequence, joints: relative}
+    root       : "${machine-conf:cache_root}/rootjoint_v1/naturalmotion"
+    stems      : src/config/data/stems/naturalmotion_valid.txt
+    layers     : ["${data.naturalmotion_t.valid}", "${data.window.valid}"]
+  - _target_   : src.data.util.build_corpus
+    _recursive_: false
+    reader     : {_target_: src.data.joint.rootjoint_sequence.RootJoint_IMU_Sequence, joints: relative}
+    root       : "${machine-conf:cache_root}/rootjoint_v1/bones_g1"
+    stems      :
+      - src/config/data/stems/bones_segments/bones_g1_valid.txt
+      - src/config/data/stems/bones_segments/bones_g1_human2robot.txt
+    layers     : ["${data.bones_g1_t.valid}", "${data.window.valid}"]
+  - _target_   : src.data.util.build_corpus
+    _recursive_: false
+    reader     : {_target_: src.data.joint.rootjoint_sequence.RootJoint_IMU_Sequence, joints: relative}
+    root       : "${machine-conf:cache_root}/rootjoint_v1/bones_soma"
+    stems      : src/config/data/stems/bones_segments/bones_soma_valid.txt
+    layers     : ["${data.bones_soma_t.valid}", "${data.window.valid}"]
+  - _target_   : src.data.util.build_corpus
+    _recursive_: false
+    reader     : {_target_: src.data.joint.rootjoint_sequence.RootJoint_IMU_Sequence, joints: relative}
+    root       : "${machine-conf:cache_root}/rootjoint_v1/superodom_clips"
+    stems      : src/config/data/stems/superodom_clips_eval.txt
+    layers     : ["${data.superodom_t.valid}", "${data.window.valid}"]

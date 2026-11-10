@@ -1,0 +1,4 @@
+# IMU2CLIP symmetric InfoNCE against the cached CLIP text embedding, see src/model/imu2clip.py.
+_target_        : src.model.imu2clip.IMU2CLIP_Loss
+init_temperature: 0.07    # starting softmax temperature (CLIP init); learned thereafter
+max_scale       : 100.0   # cap on exp(logit_scale), CLIP's clamp

@@ -1,0 +1,93 @@
+# NaturalMotion from the mmap-friendly cache written by src.scripts.naturalmotion_imu_process,
+# with the same split as naturalmotion_full_9imu.yaml.
+defaults:
+  - transform: empty
+  - window   : sliding
+  - _self_
+
+train:
+  # The first entry defines the shared anchors; all other entries merge them and override only the path.
+  - &seq
+    _target_   : src.data.util.build_nested_seq
+    _recursive_: false   # layers must reach build_nested_seq un-instantiated
+    layers:
+      - &nm
+        _target_      : src.data.imu.naturalmotion_processed.NaturalMotion_XSens_Processed_IMU
+        target_sensors: ["pelvis", "head", "torso_t8", "left_shoulder", "left_upper_arm", "left_forearm", "left_hand", "right_shoulder", "right_upper_arm", "right_forearm", "right_hand", "left_upper_leg", "left_lower_leg", "left_foot", "right_upper_leg", "right_lower_leg", "right_foot"]
+        path          : ${machine-conf:cache_root}/vt_natural_motion_processed_v3/P10_Day_1_2
+      - &train_transform ${data.transform.train}
+      - &train_window ${data.window.train}
+
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:cache_root}/vt_natural_motion_processed_v3/P11_Day_1_1"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:cache_root}/vt_natural_motion_processed_v3/P11_Day_1_2"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:cache_root}/vt_natural_motion_processed_v3/P12_Day_1_1"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:cache_root}/vt_natural_motion_processed_v3/P12_Day_1_2"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:cache_root}/vt_natural_motion_processed_v3/P13_Day_1_1"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:cache_root}/vt_natural_motion_processed_v3/P13_Day_1_2"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:cache_root}/vt_natural_motion_processed_v3/P13_Day_1_4"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:cache_root}/vt_natural_motion_processed_v3/P13_Day_2_1"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:cache_root}/vt_natural_motion_processed_v3/P13_Day_2_2"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:cache_root}/vt_natural_motion_processed_v3/P1_Day_1_1"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:cache_root}/vt_natural_motion_processed_v3/P1_Day_1_2"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:cache_root}/vt_natural_motion_processed_v3/P1_Day_1_3"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:cache_root}/vt_natural_motion_processed_v3/P1_Day_1_4"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:cache_root}/vt_natural_motion_processed_v3/P1_Day_1_5"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:cache_root}/vt_natural_motion_processed_v3/P2_Day_1_1"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:cache_root}/vt_natural_motion_processed_v3/P2_Day_1_2"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:cache_root}/vt_natural_motion_processed_v3/P2_Day_1_3"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:cache_root}/vt_natural_motion_processed_v3/P2_Day_2_2"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:cache_root}/vt_natural_motion_processed_v3/P2_Day_3_1"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:cache_root}/vt_natural_motion_processed_v3/P2_Day_3_2"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:cache_root}/vt_natural_motion_processed_v3/P2_Day_4_1"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:cache_root}/vt_natural_motion_processed_v3/P2_Day_4_2"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:cache_root}/vt_natural_motion_processed_v3/P3_Day_1_1"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:cache_root}/vt_natural_motion_processed_v3/P3_Day_1_3"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:cache_root}/vt_natural_motion_processed_v3/P4_Day_1_1"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:cache_root}/vt_natural_motion_processed_v3/P4_Day_1_2"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:cache_root}/vt_natural_motion_processed_v3/P4_Day_1_3"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:cache_root}/vt_natural_motion_processed_v3/P4_Day_2_1"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:cache_root}/vt_natural_motion_processed_v3/P5_Day_1_1"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:cache_root}/vt_natural_motion_processed_v3/P6_Day_1_1"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:cache_root}/vt_natural_motion_processed_v3/P6_Day_2_1"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:cache_root}/vt_natural_motion_processed_v3/P7_Day_1_1"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:cache_root}/vt_natural_motion_processed_v3/P8_Day_1_1"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:cache_root}/vt_natural_motion_processed_v3/P8_Day_1_2"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:cache_root}/vt_natural_motion_processed_v3/P9_Day_1_1"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:cache_root}/vt_natural_motion_processed_v3/P9_Day_1_2"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:cache_root}/vt_natural_motion_processed_v3/W1_Day_1_3"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:cache_root}/vt_natural_motion_processed_v3/W1_Day_1_5"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:cache_root}/vt_natural_motion_processed_v3/W1_Day_1_6"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:cache_root}/vt_natural_motion_processed_v3/W2_Day_1_1"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:cache_root}/vt_natural_motion_processed_v3/W2_Day_1_2"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:cache_root}/vt_natural_motion_processed_v3/W2_Day_2_1"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:cache_root}/vt_natural_motion_processed_v3/W2_Day_2_2"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:cache_root}/vt_natural_motion_processed_v3/W2_Day_2_3"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:cache_root}/vt_natural_motion_processed_v3/W2_Day_2_4"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:cache_root}/vt_natural_motion_processed_v3/W2_Day_3_1"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:cache_root}/vt_natural_motion_processed_v3/W3_Day_1_1"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:cache_root}/vt_natural_motion_processed_v3/W3_Day_1_2"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:cache_root}/vt_natural_motion_processed_v3/W3_Day_1_3"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:cache_root}/vt_natural_motion_processed_v3/W4_Day_1_3"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:cache_root}/vt_natural_motion_processed_v3/W4_Day_1_6"}, *train_transform, *train_window]}
+
+valid:
+  # Valid windows stay fixed (sliding) regardless of data/window, so metrics stay comparable.
+  - <<: *seq
+    layers:
+      - {<<: *nm, path: "${machine-conf:cache_root}/vt_natural_motion_processed_v3/P10_Day_1_1"}
+      - &valid_transform ${data.transform.valid}
+      - &valid_window ${data.window.valid}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:cache_root}/vt_natural_motion_processed_v3/P13_Day_1_3"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:cache_root}/vt_natural_motion_processed_v3/P13_Day_1_5"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:cache_root}/vt_natural_motion_processed_v3/P13_Day_1_6"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:cache_root}/vt_natural_motion_processed_v3/P13_Day_2_3"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:cache_root}/vt_natural_motion_processed_v3/P2_Day_2_1"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:cache_root}/vt_natural_motion_processed_v3/P3_Day_1_2"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:cache_root}/vt_natural_motion_processed_v3/W1_Day_1_1"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:cache_root}/vt_natural_motion_processed_v3/W1_Day_1_2"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:cache_root}/vt_natural_motion_processed_v3/W1_Day_1_4"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:cache_root}/vt_natural_motion_processed_v3/W2_Day_3_2"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:cache_root}/vt_natural_motion_processed_v3/W4_Day_1_1"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:cache_root}/vt_natural_motion_processed_v3/W4_Day_1_2"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:cache_root}/vt_natural_motion_processed_v3/W4_Day_1_4"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:cache_root}/vt_natural_motion_processed_v3/W4_Day_1_5"}, *valid_transform, *valid_window]}

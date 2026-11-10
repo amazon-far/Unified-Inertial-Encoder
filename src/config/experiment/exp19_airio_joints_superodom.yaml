@@ -1,0 +1,32 @@
+# @package _global_
+# EXP19: AirIO + joints baseline (IMUnet JointsAirIONetworkIMUOnly) on SuperOdom G1: pelvis IMU + 11 relative joints, 5 s windows.
+# Usage: python -m src.train_airio --config-name train_airio_joints experiment=exp19_airio_joints_superodom
+defaults:
+  # Real robot signal already carries gravity; a corruption stack would add it twice.
+  - override /data/transform@data.superodom_t: empty
+
+data_conf:
+  window_size: 1000
+
+data:
+  train:
+    - _target_   : src.data.util.build_corpus
+      _recursive_: false
+      reader     : {_target_: src.data.joint.rootjoint_sequence.RootJoint_IMU_Sequence, joints: relative}
+      root       : "${machine-conf:cache_root}/rootjoint_v1/superodom_clips"
+      stems      : src/config/data/stems/superodom_clips_train.txt
+      layers     : ["${data.superodom_t.train}", "${data.window.train}"]
+
+  valid:
+    - _target_   : src.data.util.build_corpus
+      _recursive_: false
+      reader     : {_target_: src.data.joint.rootjoint_sequence.RootJoint_IMU_Sequence, joints: relative}
+      root       : "${machine-conf:cache_root}/rootjoint_v1/superodom_clips"
+      stems      : src/config/data/stems/superodom_clips_eval.txt
+      layers     : ["${data.superodom_t.valid}", "${data.window.valid}"]
+
+wandb:
+  runid: Exp19_AirIOJoints_superodom
+
+trainer:
+  max_epochs: 64

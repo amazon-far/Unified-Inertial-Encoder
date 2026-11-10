@@ -1,0 +1,1125 @@
+# Raw Nymeria XSens sequences (9-IMU subset) under ${machine-conf:data_root}/nymeria_imu.
+# Dropped sequences stay as [EXCLUDED ...] comments with the reason.
+defaults:
+  - transform: empty
+  - window   : sliding
+  - _self_
+
+train:
+  # The first entry defines the shared anchors; all other entries merge them and override only the path.
+  - &seq
+    _target_   : src.data.util.build_nested_seq
+    _recursive_: false   # layers must reach build_nested_seq un-instantiated
+    layers:
+      - &nymeria
+        _target_      : src.data.imu.nymeria.Nymeria_XSens_IMU
+        target_sensors: ["left_foot", "left_lower_leg", "right_foot", "right_lower_leg", "left_hand", "left_forearm", "right_hand", "right_forearm", "pelvis"]
+        path          : ${machine-conf:data_root}/nymeria_imu/20230607_s0_james_johnson_act0_e72nhq
+      - &train_transform ${data.transform.train}
+      - &train_window ${data.window.train}
+
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230607_s0_james_johnson_act1_7xwm28"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230607_s0_james_johnson_act3_ifj2gc"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230607_s1_barbara_wheeler_act0_cvxtsi"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230607_s1_barbara_wheeler_act1_nkg6zo"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230607_s1_barbara_wheeler_act2_ig1oym"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230607_s1_barbara_wheeler_act3_qx6buy"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230607_s1_barbara_wheeler_act4_5adv12"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230608_s0_shelby_arroyo_act0_3ciwl8"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230608_s0_shelby_arroyo_act1_w436lf"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230608_s0_shelby_arroyo_act3_h8gcy2"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230609_s0_angela_harrell_act2_42epvf"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230609_s0_angela_harrell_act3_rk26s0"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230609_s0_angela_harrell_act4_egucf6"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230609_s1_heather_becker_act0_pxfo7n"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230609_s1_heather_becker_act2_2e7xi1"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230609_s1_heather_becker_act3_8le2tb"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230612_s0_jason_smith_act0_perjr7"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230612_s0_jason_smith_act1_vu03d2"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230612_s0_jason_smith_act2_yf5id3"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230612_s0_jason_smith_act4_r35kbc"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230612_s1_christina_jones_act0_u2r0z8"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230612_s1_christina_jones_act1_ixxtbh"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230612_s1_christina_jones_act2_cfnfjl"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230613_s0_virginia_rivera_act0_b6hopn"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230613_s0_virginia_rivera_act1_i7nw11"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230613_s0_virginia_rivera_act2_qxxogr"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230613_s0_virginia_rivera_act3_oc60s5"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230613_s0_virginia_rivera_act4_7gekom"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230614_s0_elizabeth_sandoval_act0_bzf7du"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230614_s0_elizabeth_sandoval_act2_xff5r9"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230614_s1_matthew_harper_act0_e1qur5"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230615_s0_dawn_heath_act1_9s9e13"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230615_s0_dawn_heath_act2_q8e6lr"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230615_s0_dawn_heath_act3_k68qig"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230615_s1_vincent_bell_act0_s0kg0n"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230616_s0_kristen_thomas_act0_5edc0f"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230616_s0_kristen_thomas_act1_2wxfud"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230616_s1_michael_griffin_act0_g5u8n8"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230619_s1_eric_martin_act0_oeiu1g"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230619_s1_eric_martin_act3_g091qh"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230620_s0_marie_vasquez_act0_5vd9yy"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230620_s0_marie_vasquez_act1_b412hh"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230620_s0_marie_vasquez_act2_pgcodg"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230620_s0_marie_vasquez_act3_9fyaun"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230620_s0_marie_vasquez_act4_dhbf58"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230620_s1_alison_carter_act0_5u560a"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230620_s1_alison_carter_act1_2s9yqg"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230620_s1_alison_carter_act2_l87ypf"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230620_s1_alison_carter_act3_8fqa3z"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230621_s0_sergio_howard_act1_b6l7nx"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230621_s0_sergio_howard_act2_y6jpzi"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230621_s0_sergio_howard_act3_crpegp"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230621_s0_sergio_howard_act4_vnpap9"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230621_s1_kevin_davis_act0_b3fcsx"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230621_s1_kevin_davis_act1_bn89qe"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230621_s1_kevin_davis_act3_bw8qui"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230621_s1_kevin_davis_act4_tvkm35"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230622_s0_john_solomon_act0_0vq3nd"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230622_s0_john_solomon_act2_8urygm"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230622_s0_john_solomon_act3_spgyzu"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230622_s0_john_solomon_act4_lw9q42"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230622_s1_sherri_scott_act0_hy4alw"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230622_s1_sherri_scott_act1_p0za9g"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230622_s1_sherri_scott_act2_9y4er8"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230622_s1_sherri_scott_act4_on56yy"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230623_s0_erin_mccormick_act2_0li4iv"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230623_s0_erin_mccormick_act3_1rnp69"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230623_s0_erin_mccormick_act4_bi2mh1"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230623_s1_joshua_thompson_act1_as5wpi"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230623_s1_joshua_thompson_act2_v4el6f"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230628_s0_adriana_gonzalez_act0_e587mn"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230628_s0_adriana_gonzalez_act4_rzxlmo"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230628_s1_hayley_little_act0_z038r0"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230628_s1_hayley_little_act1_7s36pt"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230628_s1_hayley_little_act2_95pn9m"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230628_s1_hayley_little_act3_nzzk0t"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230628_s1_hayley_little_act4_0sndzh"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230630_s0_gloria_carr_act0_e88jdx"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230630_s0_gloria_carr_act1_3noipq"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230630_s0_gloria_carr_act3_6gxzvl"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230630_s0_gloria_carr_act4_6a49eh"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230630_s1_linda_coleman_act0_qqfupk"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230630_s1_linda_coleman_act1_vfgtvu"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230630_s1_linda_coleman_act2_acjn6y"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230630_s1_linda_coleman_act4_3yy1gt"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230703_s0_tommy_ayala_act0_c07rbi"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230703_s0_tommy_ayala_act1_9vlm4u"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230703_s0_tommy_ayala_act2_uz00aj"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230703_s1_joshua_burke_act0_7lh1ls"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230703_s1_joshua_burke_act1_qwkz4c"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230703_s1_joshua_burke_act2_w08jlh"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230703_s1_joshua_burke_act3_9o8kzk"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230703_s1_joshua_burke_act4_hbjy19"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230705_s0_william_davis_act0_kdvrff"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230705_s0_william_davis_act1_jmeqks"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230705_s0_william_davis_act2_o0qmrs"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230705_s0_william_davis_act3_rjlblk"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230705_s0_william_davis_act4_h94ovw"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230706_s0_breanna_reese_act0_cfg468"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230706_s0_breanna_reese_act1_sigk2m"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230706_s0_breanna_reese_act2_7x816l"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230706_s0_breanna_reese_act3_sdndkx"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230706_s1_morgan_terrell_act3_9ops7e"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230706_s1_morgan_terrell_act4_t3ty5w"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230707_s0_anthony_perez_act1_6l760p"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230707_s0_anthony_perez_act2_bkj751"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230707_s0_anthony_perez_act4_w8od3c"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230707_s1_elizabeth_tucker_act0_df444f"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230707_s1_elizabeth_tucker_act3_28shs9"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230707_s1_elizabeth_tucker_act4_cbml7d"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230710_s0_barbara_norman_act1_bjoq6u"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230710_s0_barbara_norman_act2_h2bvu0"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230710_s0_barbara_norman_act3_1k3m8k"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230710_s0_barbara_norman_act4_ebaqa8"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230711_s0_frederick_young_act1_2imlal"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230711_s0_frederick_young_act2_t45o7e"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230711_s0_frederick_young_act3_q30n7j"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230711_s0_frederick_young_act4_0qrbux"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230711_s1_maria_duran_act1_8ighm1"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230711_s1_maria_duran_act2_xjgg2h"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230711_s1_maria_duran_act4_gal7m1"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230712_s0_laura_wilson_act0_yg1c18"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230712_s0_laura_wilson_act1_ab780b"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230712_s0_laura_wilson_act2_4j7o80"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230712_s0_laura_wilson_act3_ngqq7l"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230712_s0_laura_wilson_act4_spkfqq"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230713_s0_brian_wheeler_act0_492r3n"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230713_s0_brian_wheeler_act4_2w74x1"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230713_s1_amy_crawford_act1_py6756"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230713_s1_amy_crawford_act2_rzjqh4"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230713_s1_amy_crawford_act3_n0g94j"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230713_s1_amy_crawford_act4_7nrb9d"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230714_s0_christopher_rush_act0_dtff4h"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230714_s0_christopher_rush_act1_q2z6n8"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230714_s0_christopher_rush_act2_50m5w7"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230714_s0_christopher_rush_act3_05gv1n"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230714_s0_christopher_rush_act4_bggehs"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230714_s1_jacob_webb_act0_yz8gv1"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230714_s1_jacob_webb_act1_spz8cm"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230714_s1_jacob_webb_act2_pba2dg"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230717_s0_danielle_ortiz_act0_hjma54"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230717_s0_danielle_ortiz_act1_kn2tq7"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230717_s0_danielle_ortiz_act2_8y49gs"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230717_s0_danielle_ortiz_act3_yzdujl"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230717_s0_danielle_ortiz_act4_8l6m00"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230717_s1_janice_lopez_act0_k4ex50"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230717_s1_janice_lopez_act1_gfdrb1"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230717_s1_janice_lopez_act2_2dvd3o"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230717_s1_janice_lopez_act3_ukd5l3"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230718_s0_timothy_velasquez_act1_14egxa"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230718_s0_timothy_velasquez_act2_7fn1g3"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230718_s0_timothy_velasquez_act3_pzwo9t"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230718_s0_timothy_velasquez_act4_1njxtx"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230718_s1_john_williams_act0_bh2eua"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230718_s1_john_williams_act1_5mmoa6"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230718_s1_john_williams_act2_t4th30"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230718_s1_john_williams_act3_noz9v2"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230719_s0_shane_smith_act0_v7hlwd"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230719_s0_shane_smith_act1_fuugcm"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230719_s0_shane_smith_act4_93oi0p"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230720_s0_robert_ballard_act0_7n4853"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230720_s0_robert_ballard_act1_kdpfj8"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230720_s0_robert_ballard_act3_4j92fn"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230721_s0_mitchell_mcdonald_act1_6cxrzs"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230721_s0_mitchell_mcdonald_act2_9dgqpv"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230721_s0_mitchell_mcdonald_act3_k11m1g"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230721_s0_mitchell_mcdonald_act4_mq1a2s"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230724_s0_tyler_ayers_act0_bhdzn3"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230724_s0_tyler_ayers_act1_2izlqf"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230724_s0_tyler_ayers_act3_sslzab"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230724_s0_tyler_ayers_act4_195n10"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230724_s1_justin_heath_act0_5gtnkm"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230724_s1_justin_heath_act2_m0uc62"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230724_s1_justin_heath_act3_1eyt1k"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230724_s1_justin_heath_act4_zdlau3"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230725_s0_stephanie_moses_act0_uk2jx1"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230725_s0_stephanie_moses_act1_z5e8ru"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230725_s0_stephanie_moses_act2_c2e3sp"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230725_s0_stephanie_moses_act3_fhmjbs"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230725_s0_stephanie_moses_act4_0ld7p4"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230725_s1_julie_taylor_act0_o75254"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230725_s1_julie_taylor_act1_ken21c"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230725_s1_julie_taylor_act2_mnhq5i"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230725_s1_julie_taylor_act3_qtbv6w"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230725_s1_julie_taylor_act4_iemk0l"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230726_s0_mark_richardson_act1_66k6jp"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230726_s0_mark_richardson_act2_vx8yp2"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230726_s1_thomas_nixon_act1_k0zomm"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230726_s1_thomas_nixon_act2_bsfnuw"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230726_s1_thomas_nixon_act3_vvy3pz"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230726_s1_thomas_nixon_act4_qnrra5"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230727_s0_joanne_white_act0_dcujfb"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230727_s0_joanne_white_act1_5cv2fd"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230727_s0_joanne_white_act2_za4o6u"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230727_s0_joanne_white_act3_j3z670"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230727_s0_joanne_white_act4_o6oirh"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230727_s1_jeremy_gill_act0_f2neoo"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230727_s1_jeremy_gill_act1_9zemc6"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230727_s1_jeremy_gill_act2_vuo0aj"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230727_s1_jeremy_gill_act3_6bgvbm"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230727_s1_jeremy_gill_act4_8aq66y"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230728_s0_lauren_mayer_act0_wv6a30"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230728_s0_lauren_mayer_act2_8nao6y"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230728_s0_lauren_mayer_act3_m63vl0"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230728_s0_lauren_mayer_act4_p65q7g"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230728_s1_bradley_herman_act0_yt2cf0"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230728_s1_bradley_herman_act1_mpvyau"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230728_s1_bradley_herman_act2_ksrwyv"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230728_s1_bradley_herman_act4_bkd7tr"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230731_s0_tammy_campos_act0_d3blev"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230731_s0_tammy_campos_act1_wppztl"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230731_s0_tammy_campos_act2_6ndoea"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230731_s0_tammy_campos_act3_2snvv8"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230731_s0_tammy_campos_act4_m94oql"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230731_s1_angela_mclean_act1_ds7nat"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230731_s1_angela_mclean_act2_4h0qz3"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230731_s1_angela_mclean_act3_nwakzz"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230731_s1_angela_mclean_act4_aymtki"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230801_s0_aimee_davis_act0_afguuq"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230801_s0_aimee_davis_act1_63lfeb"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230801_s0_aimee_davis_act2_y9aj6r"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230801_s0_aimee_davis_act3_1lef15"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230801_s0_aimee_davis_act4_mizdat"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230801_s1_alexis_hernandez_act0_abfhom"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230801_s1_alexis_hernandez_act3_2d7k2y"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230801_s1_alexis_hernandez_act4_jydg4c"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230803_s0_robert_howard_act1_bs6pug"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230803_s0_robert_howard_act2_kobpfk"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230803_s0_robert_howard_act3_cusxmk"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230803_s0_robert_howard_act4_e29s94"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230803_s1_jennifer_sexton_act0_7joh8p"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230803_s1_jennifer_sexton_act2_s5pwb5"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230803_s1_jennifer_sexton_act3_y5o5bu"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230803_s1_jennifer_sexton_act4_w41kn8"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230807_s0_dominique_frye_act1_2vfq4p"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230807_s0_dominique_frye_act2_i1e9ps"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230807_s0_dominique_frye_act3_lysseo"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230807_s1_vanessa_chavez_act3_srm23t"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230807_s1_vanessa_chavez_act4_4x4ib3"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230808_s0_timothy_taylor_act4_pqrl7o"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230808_s1_erin_jones_act0_dnanle"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230808_s1_erin_jones_act1_fopolt"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230808_s1_erin_jones_act2_mcj8mg"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230808_s1_erin_jones_act4_77wkz6"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230809_s1_laura_smith_act0_thjsb8"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230809_s1_laura_smith_act1_iarj4m"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230809_s1_laura_smith_act3_6luckz"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230809_s1_laura_smith_act4_6xpf1z"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230814_s0_leah_gaines_act0_o0s8gu"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230814_s0_leah_gaines_act1_4u9p3x"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230814_s0_leah_gaines_act3_sbpqjr"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230814_s1_david_hall_act0_n9k3wo"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230814_s1_david_hall_act1_v3xpv2"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230814_s1_david_hall_act2_p5fpnm"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230814_s1_david_hall_act3_wtgp87"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230814_s1_david_hall_act4_hd5lpz"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230815_s0_samantha_lester_act1_5us647"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230815_s0_samantha_lester_act3_pat56r"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230815_s0_samantha_lester_act4_crsodw"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230815_s1_lisa_colon_act0_vqfseh"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230815_s1_lisa_colon_act1_0skqwz"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230815_s1_lisa_colon_act2_2hyzau"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230815_s1_lisa_colon_act3_okbf3p"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230815_s1_lisa_colon_act4_9e2tlp"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230816_s0_mary_ortiz_act0_5nkmtn"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230816_s0_mary_ortiz_act1_iw5z7u"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230816_s0_mary_ortiz_act2_c3xkh3"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230816_s0_mary_ortiz_act3_6rti4q"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230816_s0_mary_ortiz_act4_mlsrna"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230816_s1_jeffery_bryant_act0_p5w199"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230816_s1_jeffery_bryant_act1_2a6fxu"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230816_s1_jeffery_bryant_act2_3x9cx1"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230816_s1_jeffery_bryant_act3_ln6bpy"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230816_s1_jeffery_bryant_act4_5k1i8f"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230817_s0_brittney_powell_act0_gpjfxe"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230817_s0_brittney_powell_act1_tdosac"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230817_s0_brittney_powell_act2_87vydu"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230817_s0_brittney_powell_act3_1t2she"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230817_s0_brittney_powell_act4_qnr1ds"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230817_s1_rebecca_ward_act0_jwnzwk"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230817_s1_rebecca_ward_act1_v7qxvk"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230817_s1_rebecca_ward_act3_90saig"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230818_s0_amy_padilla_act2_tcmqjj"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230818_s0_amy_padilla_act3_51vqz9"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230818_s0_amy_padilla_act4_dq1iuq"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230818_s1_daniel_gregory_act0_mfziu6"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230818_s1_daniel_gregory_act1_gzstmb"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230818_s1_daniel_gregory_act2_qxw3ft"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230821_s1_william_wilson_act1_mub6g0"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230821_s1_william_wilson_act2_4pmg5k"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230822_s0_kyle_parker_act0_8uuizk"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230822_s0_kyle_parker_act1_0t4wnw"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230822_s0_kyle_parker_act2_y3l7lv"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230822_s0_kyle_parker_act3_eetg21"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230822_s0_kyle_parker_act4_dqa50g"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230822_s1_joshua_rice_act0_b4rale"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230822_s1_joshua_rice_act2_x4nxo7"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230822_s1_joshua_rice_act3_mw83hw"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230822_s1_joshua_rice_act4_nud8gw"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230823_s0_evelyn_moody_act0_zkzw4v"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230823_s0_evelyn_moody_act1_s82p2e"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230823_s0_evelyn_moody_act2_scckao"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230823_s0_evelyn_moody_act3_agwz0y"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230823_s0_evelyn_moody_act4_c5qn8i"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230823_s1_alison_riddle_act0_xf9eze"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230823_s1_alison_riddle_act1_ayav9z"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230823_s1_alison_riddle_act2_oetobg"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230823_s1_alison_riddle_act3_ij6e0r"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230823_s1_alison_riddle_act4_cj51l5"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230824_s0_kim_wilkins_act0_ymr6tw"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230824_s0_kim_wilkins_act2_h2pv2h"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230824_s1_jenna_farmer_act0_xx0xn9"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230824_s1_jenna_farmer_act1_q7ykv2"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230824_s1_jenna_farmer_act2_k23z0y"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230825_s0_carrie_robinson_act0_08nph3"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230825_s0_carrie_robinson_act1_kzs086"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230825_s0_carrie_robinson_act2_8uwqxr"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230825_s0_carrie_robinson_act3_b7mbgc"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230825_s0_carrie_robinson_act4_uo8b2x"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230825_s1_alejandra_reynolds_act0_pbn5z4"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230825_s1_alejandra_reynolds_act1_5i0rcc"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230825_s1_alejandra_reynolds_act3_b3i6kj"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230825_s1_alejandra_reynolds_act4_qmtzl9"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230828_s0_kaylee_johnson_act2_2ew9cq"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230828_s0_kaylee_johnson_act4_lt2qge"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230828_s1_omar_patterson_act0_gc76xs"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230828_s1_omar_patterson_act1_jtvh4v"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230828_s1_omar_patterson_act2_qvj1is"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230828_s1_omar_patterson_act4_seazrw"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230829_s0_ray_humphrey_act0_bqdgv9"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230829_s0_ray_humphrey_act1_24twv4"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230829_s0_ray_humphrey_act3_2xl28v"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230829_s0_ray_humphrey_act4_7lkmhe"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230829_s1_angel_roberts_act0_ufwa0v"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230829_s1_angel_roberts_act1_pid42h"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230829_s1_angel_roberts_act2_zv48bm"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230829_s1_angel_roberts_act3_7weiod"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230829_s1_angel_roberts_act4_nsvu15"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230830_s0_jason_vaughn_act0_5r8hso"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230830_s0_jason_vaughn_act2_s6rlkq"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230830_s0_jason_vaughn_act3_00fg0l"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230830_s0_jason_vaughn_act4_f9z6jt"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230830_s1_christy_ramirez_act0_0y2z11"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230830_s1_christy_ramirez_act1_4q5s9x"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230830_s1_christy_ramirez_act2_9ctbxp"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230830_s1_christy_ramirez_act3_xb7h1m"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230831_s1_ronald_harris_act0_7ob6gu"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230831_s1_ronald_harris_act1_dldyfy"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230831_s1_ronald_harris_act2_coheo9"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230831_s1_ronald_harris_act3_innwq4"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230831_s1_ronald_harris_act4_zqf4xn"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230901_s0_thomas_marks_act0_jsunee"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230901_s0_thomas_marks_act1_i7iwe7"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230901_s0_thomas_marks_act2_9nv9f9"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230901_s0_thomas_marks_act4_ximvkf"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230901_s1_hannah_brown_act1_tfcxk8"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230901_s1_hannah_brown_act2_kmpdfk"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230901_s1_hannah_brown_act3_2r6hss"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230901_s1_hannah_brown_act4_3t7ucs"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230905_s1_elizabeth_morgan_act0_7gv1do"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230905_s1_elizabeth_morgan_act1_i1tdvq"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230905_s1_elizabeth_morgan_act2_nfmn6i"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230905_s1_elizabeth_morgan_act3_smhnlg"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230905_s1_elizabeth_morgan_act4_m05bl9"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230906_s0_pam_nelson_act0_29c839"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230906_s0_pam_nelson_act3_0b72qt"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230906_s0_pam_nelson_act4_6st6k5"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230906_s1_ashley_owens_act0_jhib9w"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230906_s1_ashley_owens_act1_up3aap"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230906_s1_ashley_owens_act2_isidd8"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230906_s1_ashley_owens_act3_dtkhc2"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230907_s0_margaret_mccormick_act0_5imacg"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230907_s0_margaret_mccormick_act1_rwed0h"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230907_s0_margaret_mccormick_act2_mgk2q0"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230907_s0_margaret_mccormick_act3_zra054"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230907_s0_margaret_mccormick_act4_s9mmh0"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230907_s1_mary_cook_act1_hgs3yt"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230907_s1_mary_cook_act2_3nxql3"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230907_s1_mary_cook_act3_979xby"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230908_s0_joel_anderson_act0_dem66v"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230908_s0_joel_anderson_act1_qpe9b0"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230908_s0_joel_anderson_act3_4lnd3h"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230908_s0_joel_anderson_act4_b695jn"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230908_s1_danielle_pierce_act0_p1h27l"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230908_s1_danielle_pierce_act1_y2zcso"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230908_s1_danielle_pierce_act3_3pm96n"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230908_s1_danielle_pierce_act4_3twnu1"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230911_s0_angela_gomez_act1_qx4cin"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230911_s0_angela_gomez_act2_wc8tkp"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230911_s0_angela_gomez_act3_8wxz7b"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230911_s0_angela_gomez_act4_wz3jq4"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230911_s1_ethan_jacobson_act0_jencvj"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230911_s1_ethan_jacobson_act1_quar4c"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230911_s1_ethan_jacobson_act4_l7qshl"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230913_s0_stacey_lamb_act0_haahx0"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230913_s0_stacey_lamb_act1_m98zeq"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230913_s0_stacey_lamb_act2_utj5bj"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230913_s0_stacey_lamb_act3_3520q3"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230913_s0_stacey_lamb_act4_qp828r"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230913_s1_austin_lopez_act0_kf5qz3"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230913_s1_austin_lopez_act1_iv3aw1"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230913_s1_austin_lopez_act2_4ubdk3"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230913_s1_austin_lopez_act3_46m9u2"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230914_s0_tamara_gibbs_act0_w1z65k"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230914_s0_tamara_gibbs_act1_m1pdze"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230914_s0_tamara_gibbs_act2_2kx50n"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230914_s0_tamara_gibbs_act3_d8l1u5"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230914_s1_stephanie_arnold_act0_4tyh8u"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230914_s1_stephanie_arnold_act1_thyzbf"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230914_s1_stephanie_arnold_act2_usf7ul"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230914_s1_stephanie_arnold_act3_acdkmp"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230915_s0_richard_gallegos_act1_xkcc65"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230915_s0_richard_gallegos_act2_naahii"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230915_s0_richard_gallegos_act3_xgv2kx"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230915_s0_richard_gallegos_act4_a50659"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230915_s1_colleen_drake_act1_h1j70r"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230915_s1_colleen_drake_act2_133v29"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230918_s0_kevin_shaw_act0_a64she"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230918_s0_kevin_shaw_act1_pnsfz9"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230918_s0_kevin_shaw_act3_sse885"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230918_s0_kevin_shaw_act4_iwapf8"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230918_s1_bobby_griffith_act0_fzv3mk"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230918_s1_bobby_griffith_act1_fkmaqv"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230918_s1_bobby_griffith_act2_zq7ydf"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230918_s1_bobby_griffith_act3_c46j7j"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230919_s0_andrew_taylor_act0_tyinsd"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230919_s0_andrew_taylor_act1_ih9kea"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230919_s0_andrew_taylor_act4_47ni1e"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230919_s1_jessica_webster_act1_82ye18"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230919_s1_jessica_webster_act2_1j19ha"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230919_s1_jessica_webster_act3_sry5zc"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230920_s0_jeremy_lewis_act0_2216ey"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230920_s0_jeremy_lewis_act1_m8t086"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230920_s0_jeremy_lewis_act2_0zi9qz"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230920_s0_jeremy_lewis_act3_s4dnih"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230920_s0_jeremy_lewis_act4_g7syne"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230921_s0_justin_martin_act1_io9n6h"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230921_s0_justin_martin_act3_7zbeca"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230921_s0_justin_martin_act4_lks4t4"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230921_s1_alec_meza_act1_ag2eub"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230921_s1_alec_meza_act2_6oymkp"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230921_s1_alec_meza_act3_9st519"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230921_s1_alec_meza_act4_qp4dsa"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230922_s0_philip_morales_act0_f6ywde"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230922_s0_philip_morales_act1_qo01us"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230922_s0_philip_morales_act3_qqo2nq"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230922_s0_philip_morales_act4_m2qqrq"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230925_s0_suzanne_romero_act0_60lk1p"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230925_s0_suzanne_romero_act1_s6o3mq"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230925_s0_suzanne_romero_act2_cf3crk"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230925_s0_suzanne_romero_act3_91r2rg"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230925_s0_suzanne_romero_act4_82fp8g"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230925_s1_xavier_norris_act0_2zdffk"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230925_s1_xavier_norris_act1_hnxe2y"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230925_s1_xavier_norris_act2_4jjv3e"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230925_s1_xavier_norris_act4_n8vb35"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230926_s0_tasha_lee_act3_ximh91"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230926_s0_tasha_lee_act4_emnd1c"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230926_s1_megan_mejia_act1_bxit2f"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230926_s1_megan_mejia_act2_qru8e3"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230926_s1_megan_mejia_act3_g2y140"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230926_s1_megan_mejia_act4_qfzkks"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230927_s0_zachary_price_act0_k8bw1i"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230927_s0_zachary_price_act1_5uyac6"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230927_s0_zachary_price_act2_rk9hk8"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230927_s0_zachary_price_act3_u0z922"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230927_s0_zachary_price_act4_casc9i"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230927_s1_samantha_may_act1_428xjd"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230927_s1_samantha_may_act3_tidgnk"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230927_s1_samantha_may_act4_48becz"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230928_s0_grace_randolph_act0_rsm00j"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230928_s0_grace_randolph_act1_fhfkif"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230928_s0_grace_randolph_act3_090k3i"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230928_s0_grace_randolph_act4_j1cw74"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230928_s1_barbara_sandoval_act0_sp1rel"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230928_s1_barbara_sandoval_act1_79yqea"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230928_s1_barbara_sandoval_act2_btx6gv"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230928_s1_barbara_sandoval_act3_3v1muu"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230928_s1_barbara_sandoval_act4_pr1raw"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230929_s0_samuel_campos_act0_vprj3h"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230929_s0_samuel_campos_act1_pjdj1l"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230929_s0_samuel_campos_act2_uxt33r"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230929_s0_samuel_campos_act3_o6q574"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230929_s0_samuel_campos_act4_5kbgah"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230929_s1_alan_burns_act0_06krf1"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230929_s1_alan_burns_act1_679uzv"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230929_s1_alan_burns_act2_hap6xx"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230929_s1_alan_burns_act3_dxzzwb"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230929_s1_alan_burns_act4_zch0c7"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231002_s0_benjamin_bailey_act0_k8w6gq"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231002_s0_benjamin_bailey_act1_h2u953"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231002_s0_benjamin_bailey_act2_k1957t"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231002_s0_benjamin_bailey_act3_foh43k"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231002_s0_benjamin_bailey_act4_4h4p54"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231002_s1_larry_thompson_act0_ypjx1g"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231002_s1_larry_thompson_act2_oyamz7"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231002_s1_larry_thompson_act3_lj6ene"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231002_s1_larry_thompson_act4_fi6ia3"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231003_s0_thomas_tanner_act3_sbdxpo"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231003_s0_thomas_tanner_act4_wpalov"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231003_s1_allen_evans_act0_1w2b7b"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231003_s1_allen_evans_act1_8mgvm8"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231003_s1_allen_evans_act2_7pj863"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231003_s1_allen_evans_act3_4xx4gr"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231004_s0_corey_coleman_act0_rr7mz0"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231004_s0_corey_coleman_act2_8nhznh"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231004_s0_corey_coleman_act3_45q7f3"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231004_s0_corey_coleman_act4_270i8e"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231004_s1_ashley_reyes_act2_25pwky"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231004_s1_ashley_reyes_act4_mhhxmg"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231005_s0_glenn_richardson_act0_ubz6ea"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231005_s0_glenn_richardson_act1_l17sea"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231005_s0_glenn_richardson_act2_fwephr"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231005_s0_glenn_richardson_act4_bg6k8j"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231006_s0_david_vega_act1_8vh4ec"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231006_s0_david_vega_act2_n6de6h"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231006_s0_david_vega_act3_eql8yh"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231006_s0_david_vega_act4_6bkz0c"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231006_s1_kirk_flowers_act0_hfjvo9"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231006_s1_kirk_flowers_act1_qhca1c"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231006_s1_kirk_flowers_act2_lx53pr"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231006_s1_kirk_flowers_act4_62iape"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231009_s0_clayton_bradley_act0_8iksyy"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231009_s0_clayton_bradley_act2_o6beth"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231009_s0_clayton_bradley_act3_0e6w6j"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231009_s1_patrick_hall_act0_mow3jx"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231009_s1_patrick_hall_act3_i0pz1j"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231009_s1_patrick_hall_act4_m3hjzg"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231010_s0_albert_hammond_act2_op7b8a"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231010_s0_albert_hammond_act3_wshdw5"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231010_s1_cheryl_johnson_act0_7geogn"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231010_s1_cheryl_johnson_act1_rcwdub"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231010_s1_cheryl_johnson_act2_xssrc8"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231011_s0_devon_norris_act0_1q00q5"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231011_s0_devon_norris_act1_nkata9"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231011_s0_devon_norris_act2_x4yw8k"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231011_s0_devon_norris_act3_pc8aac"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231011_s0_devon_norris_act4_pt4a8p"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231011_s1_daniel_kim_act0_czkjpc"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231011_s1_daniel_kim_act2_6lxp22"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231011_s1_daniel_kim_act4_guulez"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231012_s1_johnathan_good_act0_jph686"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231012_s1_johnathan_good_act1_p648fh"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231012_s1_johnathan_good_act2_l2titp"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231012_s1_johnathan_good_act3_r33pvo"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231012_s1_johnathan_good_act4_jvtyeo"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231013_s0_shelley_jones_act0_86mz1k"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231013_s0_shelley_jones_act1_67cgea"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231013_s0_shelley_jones_act2_7g21c5"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231013_s0_shelley_jones_act4_ll1mzx"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231013_s1_lucas_flores_act1_0dz749"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231013_s1_lucas_flores_act4_j0mhhv"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231016_s0_holly_keller_act1_xw8kjo"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231016_s0_holly_keller_act2_wba9bq"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231016_s0_holly_keller_act3_frlx2s"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231016_s1_diane_williams_act2_yo8oov"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231016_s1_diane_williams_act4_4gps4y"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231017_s0_emily_farmer_act0_1fkcmb"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231017_s0_emily_farmer_act1_zeh5ol"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231017_s0_emily_farmer_act2_oo4jck"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231017_s0_emily_farmer_act3_cdjr78"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231017_s0_emily_farmer_act4_7hfdpx"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231018_s0_scott_hutchinson_act0_yg2uvq"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231018_s0_scott_hutchinson_act1_0meth2"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231018_s0_scott_hutchinson_act3_46oe4h"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231018_s0_scott_hutchinson_act4_psy7z7"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231018_s1_debra_melton_act0_35ud0g"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231018_s1_debra_melton_act1_qlnvd8"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231018_s1_debra_melton_act2_te0bik"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231018_s1_debra_melton_act3_05u85y"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231018_s1_debra_melton_act4_wzf900"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231019_s0_douglas_martin_act0_bn05ds"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231019_s0_douglas_martin_act1_n6a4yk"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231019_s0_douglas_martin_act3_rsqq7a"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231019_s0_douglas_martin_act4_zqmd83"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231019_s1_brady_pearson_act0_4q0w7h"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231019_s1_brady_pearson_act1_sf420q"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231019_s1_brady_pearson_act4_ofm2lm"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231020_s0_anthony_chen_act0_2d0ghq"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231020_s0_anthony_chen_act1_vhzag9"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231020_s0_anthony_chen_act3_q2jhl4"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231020_s0_anthony_chen_act4_1nernr"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231020_s1_steven_jackson_act0_y4ovu2"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231020_s1_steven_jackson_act1_tdwliv"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231020_s1_steven_jackson_act2_y8e709"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231020_s1_steven_jackson_act3_jrv0cu"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231020_s1_steven_jackson_act4_xf4znx"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231023_s0_christopher_green_act0_xmkg1h"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231023_s0_christopher_green_act1_tsm80q"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231023_s0_christopher_green_act4_fzytyg"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231025_s1_alicia_drake_act0_vqu3n9"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231025_s1_alicia_drake_act2_ns2euv"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231025_s1_alicia_drake_act3_dja4ib"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231025_s1_alicia_drake_act4_h0xpxx"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231026_s0_arthur_byrd_act0_8yzivt"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231026_s0_arthur_byrd_act1_xqvggh"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231026_s0_arthur_byrd_act2_rl36dt"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231026_s0_arthur_byrd_act3_ju7xvg"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231026_s0_arthur_byrd_act4_gyd99i"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231026_s1_amy_rosales_act0_5kxlme"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231026_s1_amy_rosales_act1_gw4r7y"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231026_s1_amy_rosales_act2_2a0ejg"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231026_s1_amy_rosales_act3_8zoku8"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231026_s1_amy_rosales_act4_m0nqli"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231027_s0_george_james_act0_geiicu"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231027_s0_george_james_act2_sc8y8a"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231027_s1_stacie_cross_act0_0ii1m7"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231027_s1_stacie_cross_act1_01n38w"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231027_s1_stacie_cross_act2_kijh3i"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231027_s1_stacie_cross_act3_xkxv6y"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231030_s0_angela_garcia_act1_ygml1u"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231030_s0_angela_garcia_act3_9mvz9c"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231030_s0_angela_garcia_act4_sqneyr"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231030_s1_allison_harris_act3_fe2ruo"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231030_s1_allison_harris_act4_n8ko8d"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231031_s0_jason_brown_act0_zb36n0"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231031_s0_jason_brown_act1_8cyshm"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231031_s0_jason_brown_act3_2h0n5a"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231031_s0_jason_brown_act4_v26yux"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231031_s1_eric_dickerson_act3_2sdilo"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231031_s1_eric_dickerson_act4_u8zs9t"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231101_s0_joshua_smith_act0_9obbs3"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231101_s0_joshua_smith_act1_5eipiv"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231101_s0_joshua_smith_act2_pmfjzl"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231101_s0_joshua_smith_act3_xl7p9n"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231101_s0_joshua_smith_act4_3y5iik"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231101_s1_dean_krause_act0_e3myru"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231101_s1_dean_krause_act1_wsos2s"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231101_s1_dean_krause_act2_zfclo4"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231101_s1_dean_krause_act3_682crw"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231101_s1_dean_krause_act4_1fmih5"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231102_s0_samuel_rogers_act0_x6hia4"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231102_s0_samuel_rogers_act1_gbppny"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231102_s0_samuel_rogers_act2_67c1t9"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231102_s0_samuel_rogers_act4_m069p6"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231102_s1_trevor_riley_act4_01db8d"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231103_s1_erica_sims_act0_d7kva2"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231103_s1_erica_sims_act1_2cr1ms"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231103_s1_erica_sims_act2_53rawd"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231103_s1_erica_sims_act3_vp6p7a"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231103_s1_erica_sims_act4_japnpv"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231106_s0_nancy_david_act0_bgmt5f"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231106_s0_nancy_david_act1_v9psen"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231106_s0_nancy_david_act2_ixtgby"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231106_s0_nancy_david_act3_y0kb4w"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231106_s0_nancy_david_act4_7cwi7y"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231106_s1_amanda_rodgers_act0_uu42ld"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231106_s1_amanda_rodgers_act1_t0mhqi"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231106_s1_amanda_rodgers_act2_snceed"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231106_s1_amanda_rodgers_act3_feslhn"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231106_s1_amanda_rodgers_act4_kli4b8"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231107_s0_amy_snow_act0_hi4pzu"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231107_s0_amy_snow_act1_beq08t"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231107_s0_amy_snow_act2_rd02py"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231107_s0_amy_snow_act3_y044ox"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231107_s0_amy_snow_act4_olkcrm"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231107_s1_gregory_townsend_act0_8valif"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231107_s1_gregory_townsend_act1_7eol9h"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231107_s1_gregory_townsend_act2_h4udvj"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231107_s1_gregory_townsend_act3_pf21bg"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231107_s1_gregory_townsend_act4_2xpcxm"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231108_s0_nicholas_hicks_act0_g5hz4p"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231108_s0_nicholas_hicks_act1_edwwhl"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231108_s0_nicholas_hicks_act2_fuuo13"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231108_s0_nicholas_hicks_act3_j7bheq"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231108_s0_nicholas_hicks_act4_fga6of"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231108_s1_kurt_young_act0_xjdx7y"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231108_s1_kurt_young_act1_59wzpq"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231108_s1_kurt_young_act2_g8p6we"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231108_s1_kurt_young_act3_hfomju"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231108_s1_kurt_young_act4_t5o4jk"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231109_s0_janet_walsh_act0_tx6dli"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231109_s0_janet_walsh_act2_yjr1qh"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231109_s0_janet_walsh_act3_1uklre"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231109_s0_janet_walsh_act4_whrohp"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231110_s0_thomas_brown_act0_app64m"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231110_s0_thomas_brown_act1_ne6008"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231110_s0_thomas_brown_act2_y79qwk"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231110_s0_thomas_brown_act3_pisdac"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231110_s0_thomas_brown_act4_x3t73z"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231110_s1_jerry_shaffer_act0_udb6o0"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231110_s1_jerry_shaffer_act1_f9viqk"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231110_s1_jerry_shaffer_act2_295gtc"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231110_s1_jerry_shaffer_act3_051bbw"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231113_s0_patricia_gutierrez_act2_c993gv"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231113_s0_patricia_gutierrez_act3_0fk89s"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231113_s0_patricia_gutierrez_act4_ifc9zd"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231113_s0_patricia_gutierrez_act5_swxtds"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231113_s0_patricia_gutierrez_act6_209mth"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231113_s1_greg_clark_act0_6faq6z"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231113_s1_greg_clark_act1_pe0myc"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231113_s1_greg_clark_act2_jc6wnc"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231113_s1_greg_clark_act3_59jat5"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231113_s1_greg_clark_act4_chhp0x"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231114_s0_autumn_garcia_act1_kidy4p"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231114_s0_autumn_garcia_act2_o7wqsz"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231114_s1_logan_walton_act0_0k3g2z"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231114_s1_logan_walton_act1_ky9h4v"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231114_s1_logan_walton_act2_u3sqfr"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231114_s1_logan_walton_act3_qfkeop"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231114_s1_logan_walton_act4_842wcd"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231114_s1_logan_walton_act5_jvyusp"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231114_s1_logan_walton_act6_xrp2n5"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231115_s0_carly_patterson_act0_et4azi"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231115_s0_carly_patterson_act1_dutu4b"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231115_s0_carly_patterson_act3_0upafo"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231115_s0_carly_patterson_act4_5yuryl"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231115_s0_carly_patterson_act5_5fdwlm"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231115_s1_andrew_johnson_act0_us908q"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231115_s1_andrew_johnson_act4_rhpi50"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231115_s1_andrew_johnson_act5_mm3rp3"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231115_s1_andrew_johnson_act6_vol5wd"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231116_s1_justin_ramirez_act2_vnmh36"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231117_s0_randy_martin_act0_gmuv89"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231117_s0_randy_martin_act1_uwz691"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231117_s0_randy_martin_act2_h0cgyy"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231117_s0_randy_martin_act3_unetns"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231117_s0_randy_martin_act4_hernaf"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231117_s1_brooke_butler_act0_2stj2b"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231117_s1_brooke_butler_act1_n6qbu8"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231117_s1_brooke_butler_act3_ka03fn"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231117_s1_brooke_butler_act4_w8xkvt"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231120_s1_anna_chambers_act0_ozwnxp"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231120_s1_anna_chambers_act3_8d840m"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231120_s1_anna_chambers_act4_bbrita"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231121_s0_alexandria_griffith_act1_za20h3"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231121_s0_alexandria_griffith_act2_t3030z"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231121_s0_alexandria_griffith_act3_6rhdue"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231121_s1_christopher_martinez_act1_rotu10"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231121_s1_christopher_martinez_act2_k0tjlc"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231122_s0_frank_hayden_act0_1wz6gh"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231122_s0_frank_hayden_act2_rjtf5a"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231122_s0_frank_hayden_act3_7v3s2u"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231122_s0_frank_hayden_act4_d1pep2"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231122_s1_harold_copeland_act1_suxmfb"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231122_s1_harold_copeland_act2_k1ngjh"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231122_s1_harold_copeland_act3_tx1y5l"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231127_s0_steven_vang_act0_ajubls"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231127_s0_steven_vang_act1_ujcdg3"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231127_s0_steven_vang_act2_hryoaj"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231127_s0_steven_vang_act3_p25237"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231127_s0_steven_vang_act4_mbwlha"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231127_s1_robyn_blackburn_act1_9uhvnc"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231127_s1_robyn_blackburn_act2_0d50c2"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231127_s1_robyn_blackburn_act3_t4abeq"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231127_s1_robyn_blackburn_act4_jwlomt"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231128_s0_paul_nguyen_act0_3iqj71"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231128_s0_paul_nguyen_act1_5i49b8"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231128_s0_paul_nguyen_act2_thvxg9"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231128_s0_paul_nguyen_act3_130qtq"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231128_s0_paul_nguyen_act4_s1ad2y"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231128_s1_michael_vargas_act0_yvskcx"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231128_s1_michael_vargas_act1_5lswqj"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231128_s1_michael_vargas_act2_16jyco"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231128_s1_michael_vargas_act3_yhtokg"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231129_s0_brittney_goodwin_act0_4n2i8x"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231129_s0_brittney_goodwin_act1_q5w3fs"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231129_s0_brittney_goodwin_act2_5v65nb"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231129_s0_brittney_goodwin_act3_es7voc"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231129_s0_brittney_goodwin_act4_j3rly0"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231129_s1_dylan_jones_act0_4o5mmd"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231129_s1_dylan_jones_act1_w6uh3m"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231129_s1_dylan_jones_act2_9ctp9s"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231129_s1_dylan_jones_act3_rznb4r"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231129_s1_dylan_jones_act4_qz9ol4"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231130_s0_danielle_wu_act0_qgltbz"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231130_s0_danielle_wu_act1_8cw2pg"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231130_s0_danielle_wu_act2_yugj1m"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231130_s0_danielle_wu_act3_hpixqf"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231130_s0_danielle_wu_act4_re8xz8"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231130_s1_mary_barker_act0_v5jpt3"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231130_s1_mary_barker_act2_3367yd"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231130_s1_mary_barker_act3_i1lsvk"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231130_s1_mary_barker_act4_mgpfgc"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231201_s0_walter_park_act3_bfx6pb"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231201_s1_daniel_wiley_act1_jsgb9x"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231201_s1_daniel_wiley_act2_9qypr0"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231201_s1_daniel_wiley_act3_iqzyly"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231201_s1_daniel_wiley_act4_jyipqj"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231204_s0_jacqueline_brewer_act2_f8ppn5"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231204_s0_jacqueline_brewer_act4_ug37pp"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231204_s0_jacqueline_brewer_act5_dp03vj"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231204_s1_sylvia_joseph_act0_q94lwc"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231204_s1_sylvia_joseph_act1_j8ro51"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231204_s1_sylvia_joseph_act2_djcxxb"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231204_s1_sylvia_joseph_act3_byp86m"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231204_s1_sylvia_joseph_act4_fvzukw"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231204_s1_sylvia_joseph_act5_xyzax4"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231205_s0_sarah_roberts_act0_v24gb2"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231205_s0_sarah_roberts_act1_l8rpbx"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231205_s0_sarah_roberts_act2_764c3v"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231205_s0_sarah_roberts_act4_v2vqgm"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231205_s0_sarah_roberts_act5_t6hkb1"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231205_s0_sarah_roberts_act6_j7fezf"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231205_s1_alexis_wyatt_act0_0e9t84"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231205_s1_alexis_wyatt_act1_sqkh5t"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231205_s1_alexis_wyatt_act2_8pdd37"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231205_s1_alexis_wyatt_act4_5mpq3f"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231205_s1_alexis_wyatt_act5_h2hhq0"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231205_s1_alexis_wyatt_act6_10xd2w"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231206_s0_david_morgan_act0_slk2yl"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231206_s0_david_morgan_act1_5w4yjb"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231206_s0_david_morgan_act2_5gguan"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231206_s0_david_morgan_act5_8kkg58"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231206_s0_david_morgan_act7_7id48q"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231206_s1_virginia_perez_act0_vmsk4c"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231206_s1_virginia_perez_act1_smf6ci"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231206_s1_virginia_perez_act2_69w9xe"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231206_s1_virginia_perez_act4_m2e846"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231206_s1_virginia_perez_act6_ow29t4"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231206_s1_virginia_perez_act7_b2tvc7"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231207_s0_jodi_morrison_act1_fy6dbk"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231207_s0_jodi_morrison_act2_jtxaa5"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231207_s0_jodi_morrison_act3_ygfc8p"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231207_s0_jodi_morrison_act4_iplp4x"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231207_s0_jodi_morrison_act5_byr6l2"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231207_s1_katie_white_act1_yanshd"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231207_s1_katie_white_act2_4kzoq8"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231207_s1_katie_white_act3_eagfuz"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231207_s1_katie_white_act4_ie44mj"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231207_s1_katie_white_act5_iv31in"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231207_s1_katie_white_act6_9temus"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231208_s0_ronald_guerra_act1_0qvs48"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231208_s0_ronald_guerra_act2_04wdzr"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231208_s0_ronald_guerra_act3_ft9xs3"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231208_s0_ronald_guerra_act4_jiktnu"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231208_s0_ronald_guerra_act5_y2gscm"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231208_s0_ronald_guerra_act7_zbic37"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231208_s1_courtney_ross_act0_ueijk9"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231208_s1_courtney_ross_act3_humv9u"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231208_s1_courtney_ross_act4_ye9oty"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231208_s1_courtney_ross_act5_l2ymrw"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231208_s1_courtney_ross_act6_r50qt3"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231208_s1_courtney_ross_act7_z0afpt"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231211_s1_seth_bowman_act0_uk6xx7"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231211_s1_seth_bowman_act1_u7em0v"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231211_s1_seth_bowman_act2_p2kxjv"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231211_s1_seth_bowman_act3_ade3pp"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231211_s1_seth_bowman_act4_9jyykj"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231211_s1_seth_bowman_act6_mil3so"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231211_s1_seth_bowman_act7_mxh0yr"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231212_s0_paul_arellano_act0_xa04m4"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231212_s0_paul_arellano_act1_t2fpwg"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231212_s0_paul_arellano_act2_pryhwf"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231212_s0_paul_arellano_act3_oj31oo"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231212_s0_paul_arellano_act4_8tlvij"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231212_s0_paul_arellano_act6_nlixhz"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231212_s0_paul_arellano_act7_z9zohs"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231212_s1_justin_jackson_act1_q1vpto"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231212_s1_justin_jackson_act2_bw0jz0"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231213_s0_shawn_wright_act0_p7ib77"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231213_s0_shawn_wright_act1_t4c8tk"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231213_s0_shawn_wright_act3_xl2fel"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231213_s0_shawn_wright_act4_q2yy1a"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231213_s0_shawn_wright_act5_z5oir7"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231213_s0_shawn_wright_act6_ck8xab"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231213_s0_shawn_wright_act7_onxbbz"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231213_s1_brenda_jacobs_act0_8v2ddn"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231213_s1_brenda_jacobs_act1_jfsx5d"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231213_s1_brenda_jacobs_act3_qykbiv"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231213_s1_brenda_jacobs_act4_faul3b"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231213_s1_brenda_jacobs_act5_al5uzv"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231213_s1_brenda_jacobs_act7_mnqj9y"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231214_s0_jeremy_allen_act3_0vxyxb"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231214_s0_jeremy_allen_act4_hobxx4"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231214_s0_jeremy_allen_act5_m10nnd"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231214_s1_douglas_hoffman_act2_n1r8xv"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231214_s1_douglas_hoffman_act3_b7ygdu"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231214_s1_douglas_hoffman_act4_a5ywcz"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231214_s1_douglas_hoffman_act5_0bsrgr"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231214_s1_douglas_hoffman_act6_7orrds"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231215_s0_jeffrey_king_act0_af15s6"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231215_s0_jeffrey_king_act1_4em613"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231215_s1_dylan_lambert_act0_ud1ljw"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231215_s1_dylan_lambert_act1_6bhj0h"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231218_s0_roger_mcguire_act0_4r9wru"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231218_s0_roger_mcguire_act1_tip8ax"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231218_s0_roger_mcguire_act2_jn10kc"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231218_s0_roger_mcguire_act3_h9a63h"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231218_s1_kathryn_pruitt_act1_kfh278"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231218_s1_kathryn_pruitt_act2_9nsjjy"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231219_s0_randall_love_act0_ifqvip"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231219_s0_randall_love_act2_nwllyf"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231219_s0_randall_love_act3_np5hre"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231219_s0_randall_love_act6_8pqkk5"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231219_s0_randall_love_act7_t3dfn8"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231219_s1_erica_lee_act0_f4r1g9"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231219_s1_erica_lee_act1_cx3z5g"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231219_s1_erica_lee_act2_nbdcde"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231219_s1_erica_lee_act4_pls1to"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231219_s1_erica_lee_act5_1sdu2b"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231219_s1_erica_lee_act6_ky4pxw"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231220_s0_victor_sloan_act0_0afk6m"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231220_s0_victor_sloan_act1_yr5kb6"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231220_s0_victor_sloan_act2_vl65qa"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231220_s0_victor_sloan_act3_u9trb4"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231220_s0_victor_sloan_act4_v05i2p"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231220_s0_victor_sloan_act5_9k2tu1"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231220_s0_victor_sloan_act6_xecyns"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231220_s0_victor_sloan_act7_a5adu9"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231220_s1_amanda_wong_act0_0kpd1x"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231220_s1_amanda_wong_act1_pumk92"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231220_s1_amanda_wong_act2_fns8ga"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231220_s1_amanda_wong_act3_vtngm8"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231220_s1_amanda_wong_act4_08hc68"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231220_s1_amanda_wong_act5_2uuz43"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231220_s1_amanda_wong_act6_z92lyz"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231221_s0_sara_wilson_act0_kwr7yc"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231221_s0_sara_wilson_act2_r3uazu"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231221_s0_sara_wilson_act3_u5ah3q"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231221_s0_sara_wilson_act4_vycig8"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231221_s0_sara_wilson_act5_5mltvv"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231221_s0_sara_wilson_act6_i9kr0t"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231221_s0_sara_wilson_act7_yi087o"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231221_s1_edward_contreras_act0_8g1o1t"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231221_s1_edward_contreras_act1_zfbwwy"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231221_s1_edward_contreras_act3_quequm"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231221_s1_edward_contreras_act4_0btav4"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231221_s1_edward_contreras_act5_hpf8sz"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231221_s1_edward_contreras_act6_sjxq8r"}, *train_transform, *train_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231221_s1_edward_contreras_act7_0l5ieq"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231222_s0_denise_carter_act1_249vkf"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231222_s0_denise_carter_act2_d8mdi5"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231222_s0_denise_carter_act3_3itytl"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231222_s0_denise_carter_act4_2ms2g1"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231222_s0_denise_carter_act5_monllv"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231222_s0_denise_carter_act6_26wfkz"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231222_s1_kenneth_fischer_act0_og02e0"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231222_s1_kenneth_fischer_act1_wxnaof"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231222_s1_kenneth_fischer_act2_9iajrk"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231222_s1_kenneth_fischer_act3_b97ldq"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231222_s1_kenneth_fischer_act4_86vcmh"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231222_s1_kenneth_fischer_act5_osievi"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231222_s1_kenneth_fischer_act6_kbpn0q"}, *train_transform, *train_window]}
+
+valid:
+  - <<: *seq
+    layers:
+      - {<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230607_s0_james_johnson_act2_yhbvpa"}
+      - &valid_transform ${data.transform.valid}
+      - &valid_window ${data.window.valid}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230609_s1_heather_becker_act1_jkyybw"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230612_s0_jason_smith_act3_c6na21"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230612_s1_christina_jones_act3_g4lbfz"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230612_s1_christina_jones_act4_iizndy"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230614_s1_matthew_harper_act1_cimupu"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230619_s1_eric_martin_act1_5hreq7"}, *valid_transform, *valid_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230621_s1_kevin_davis_act2_1aywrw"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230622_s0_john_solomon_act1_z0ttbq"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230623_s0_erin_mccormick_act1_fccuax"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230623_s1_joshua_thompson_act0_nbqvca"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230623_s1_joshua_thompson_act3_scvhws"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230628_s0_adriana_gonzalez_act1_2vshuw"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230630_s0_gloria_carr_act2_xj3tm8"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230703_s0_tommy_ayala_act4_i8zkip"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230706_s0_breanna_reese_act4_ff1ki2"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230706_s1_morgan_terrell_act2_n6v78a"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230707_s0_anthony_perez_act0_wghngx"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230707_s1_elizabeth_tucker_act1_y7x50v"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230707_s1_elizabeth_tucker_act2_dymzv7"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230711_s1_maria_duran_act3_j2euoh"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230713_s0_brian_wheeler_act3_rhb1ew"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230713_s1_amy_crawford_act0_gnlv1f"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230714_s1_jacob_webb_act4_250tg7"}, *valid_transform, *valid_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230718_s0_timothy_velasquez_act0_wuotjg"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230718_s1_john_williams_act4_gv55cd"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230719_s0_shane_smith_act2_eooqs5"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230719_s0_shane_smith_act3_sfxa5j"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230720_s0_robert_ballard_act2_qf6btf"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230720_s0_robert_ballard_act4_k3tu8l"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230721_s0_mitchell_mcdonald_act0_7q34xb"}, *valid_transform, *valid_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230721_s1_david_ramirez_act3_e90ru8"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230724_s0_tyler_ayers_act2_gjwzde"}, *valid_transform, *valid_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230724_s1_justin_heath_act1_veko6i"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230726_s0_mark_richardson_act0_rfwgbe"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230726_s0_mark_richardson_act3_7pofe2"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230726_s0_mark_richardson_act4_bao59g"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230726_s1_thomas_nixon_act0_zirlmy"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230728_s0_lauren_mayer_act1_8hf4dv"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230728_s1_bradley_herman_act3_uwvekz"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230731_s1_angela_mclean_act0_y7gxwk"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230801_s1_alexis_hernandez_act1_4km3up"}, *valid_transform, *valid_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230807_s0_dominique_frye_act0_331fgc"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230807_s1_vanessa_chavez_act0_gu6go2"}, *valid_transform, *valid_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230807_s1_vanessa_chavez_act2_vvedi0"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230808_s0_timothy_taylor_act0_3cgk3y"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230808_s0_timothy_taylor_act2_d3e2e0"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230808_s1_erin_jones_act3_zjg2py"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230814_s0_leah_gaines_act4_6up73n"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230815_s0_samantha_lester_act0_513kae"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230817_s1_rebecca_ward_act2_39a7o2"}, *valid_transform, *valid_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230821_s1_william_wilson_act0_y0uh8p"}, *valid_transform, *valid_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230821_s1_william_wilson_act3_gnf0bz"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230824_s0_kim_wilkins_act4_vkjf3l"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230825_s1_alejandra_reynolds_act2_3919iw"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230828_s0_kaylee_johnson_act0_h03kly"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230828_s0_kaylee_johnson_act1_svrk6s"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230828_s0_kaylee_johnson_act3_45ge62"}, *valid_transform, *valid_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230828_s1_omar_patterson_act3_8fvdhs"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230829_s0_ray_humphrey_act2_knawby"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230830_s0_jason_vaughn_act1_wjd3ye"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230901_s0_thomas_marks_act3_1a99i8"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230901_s1_hannah_brown_act0_xsx9al"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230906_s0_pam_nelson_act1_qihxej"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230906_s1_ashley_owens_act4_8wtl5l"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230908_s0_joel_anderson_act2_cfyj2k"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230911_s0_angela_gomez_act0_akiu3m"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230911_s1_ethan_jacobson_act2_jcgvzu"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230918_s0_kevin_shaw_act2_5g4k0z"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230918_s1_bobby_griffith_act4_58yeq0"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230919_s0_andrew_taylor_act2_8ndt6i"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230919_s0_andrew_taylor_act3_6n13wu"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230919_s1_jessica_webster_act4_mkagq3"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230921_s1_alec_meza_act0_8ytqbv"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230925_s1_xavier_norris_act3_80o04w"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230926_s0_tasha_lee_act0_o7xjqq"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230926_s0_tasha_lee_act1_g983gs"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230926_s0_tasha_lee_act2_kiwnzd"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230926_s1_megan_mejia_act0_p68k3m"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230927_s1_samantha_may_act0_kb2wve"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20230928_s0_grace_randolph_act2_0xxd51"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231002_s1_larry_thompson_act1_y0d2n4"}, *valid_transform, *valid_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231003_s1_allen_evans_act4_cv3qh0"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231004_s0_corey_coleman_act1_izf77d"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231004_s1_ashley_reyes_act0_gzwj6y"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231004_s1_ashley_reyes_act1_3d7yqq"}, *valid_transform, *valid_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231004_s1_ashley_reyes_act3_rvrs3d"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231005_s0_glenn_richardson_act3_hi1apl"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231006_s0_david_vega_act0_6p16ou"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231009_s1_patrick_hall_act1_d48423"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231009_s1_patrick_hall_act2_a92orm"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231010_s0_albert_hammond_act0_k4ikpb"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231010_s0_albert_hammond_act1_a8n80c"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231010_s1_cheryl_johnson_act3_fn3vci"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231011_s1_daniel_kim_act3_j72s9x"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231013_s0_shelley_jones_act3_w23p1b"}, *valid_transform, *valid_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231013_s1_lucas_flores_act0_fh8eql"}, *valid_transform, *valid_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231013_s1_lucas_flores_act2_61d758"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231013_s1_lucas_flores_act3_wnze07"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231016_s0_holly_keller_act4_y8fier"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231016_s1_diane_williams_act1_6h2iuk"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231018_s0_scott_hutchinson_act2_nf6n9s"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231019_s0_douglas_martin_act2_jqgdif"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231019_s1_brady_pearson_act2_eca0o9"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231019_s1_brady_pearson_act3_m62h0n"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231023_s0_christopher_green_act2_uqfh8o"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231023_s0_christopher_green_act3_y3ve5x"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231025_s1_alicia_drake_act1_hbtwlg"}, *valid_transform, *valid_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231027_s0_george_james_act1_fgpe5g"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231027_s0_george_james_act3_agc35l"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231027_s0_george_james_act4_xnaxx4"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231027_s1_stacie_cross_act4_1anme8"}, *valid_transform, *valid_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231030_s0_angela_garcia_act2_wedtsu"}, *valid_transform, *valid_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231031_s1_eric_dickerson_act2_4si35n"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231102_s0_samuel_rogers_act3_680kij"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231109_s0_janet_walsh_act1_ch667b"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231110_s1_jerry_shaffer_act4_gy8vgr"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231113_s1_greg_clark_act5_hu4348"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231114_s0_autumn_garcia_act0_evwtxn"}, *valid_transform, *valid_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231114_s0_autumn_garcia_act3_uhs0k5"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231115_s0_carly_patterson_act6_js81qs"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231115_s1_andrew_johnson_act1_5oo8ba"}, *valid_transform, *valid_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231116_s1_justin_ramirez_act0_b6dgmp"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231116_s1_justin_ramirez_act1_e4z9z3"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231117_s1_brooke_butler_act2_yhi7zj"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231120_s1_anna_chambers_act1_d3hajl"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231120_s1_anna_chambers_act2_io7hdm"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231121_s0_alexandria_griffith_act0_945arb"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231121_s1_christopher_martinez_act0_cj8p79"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231122_s0_frank_hayden_act1_zqs91r"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231122_s1_harold_copeland_act0_xnps4a"}, *valid_transform, *valid_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231122_s1_harold_copeland_act4_jxdyqy"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231127_s1_robyn_blackburn_act0_tzq7vv"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231128_s1_michael_vargas_act4_nrf2pr"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231130_s1_mary_barker_act1_pkk8nb"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231201_s1_daniel_wiley_act0_ok1mm7"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231204_s0_jacqueline_brewer_act0_oz7jf1"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231204_s0_jacqueline_brewer_act1_u95ciq"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231204_s0_jacqueline_brewer_act3_vb49ll"}, *valid_transform, *valid_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231205_s0_sarah_roberts_act3_vflypr"}, *valid_transform, *valid_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231205_s1_alexis_wyatt_act3_tcdi7g"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231206_s0_david_morgan_act4_feu7ho"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231206_s0_david_morgan_act6_d2lv7e"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231208_s0_ronald_guerra_act0_47pjy3"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231208_s0_ronald_guerra_act6_aim5sk"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231208_s1_courtney_ross_act1_icu1jr"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231208_s1_courtney_ross_act2_wsft6z"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231211_s1_seth_bowman_act5_to75qj"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231212_s0_paul_arellano_act5_gthnea"}, *valid_transform, *valid_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231213_s0_shawn_wright_act2_yay1vv"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231213_s1_brenda_jacobs_act2_q91zix"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231213_s1_brenda_jacobs_act6_9knn6o"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231214_s0_jeremy_allen_act2_u9fn01"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231218_s1_kathryn_pruitt_act0_2nxprf"}, *valid_transform, *valid_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231219_s0_randall_love_act1_o6on0u"}, *valid_transform, *valid_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231219_s0_randall_love_act4_zbzzy3"}, *valid_transform, *valid_window]}
+# [EXCLUDED gap-straddling window]   - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231219_s0_randall_love_act5_31go5x"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231219_s1_erica_lee_act3_9duc0a"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231219_s1_erica_lee_act7_ofujlk"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231220_s1_amanda_wong_act7_f5wp77"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231221_s0_sara_wilson_act1_fxb1ad"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231221_s1_edward_contreras_act2_figf99"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231222_s0_denise_carter_act0_3rt2lg"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231222_s0_denise_carter_act7_pprpjw"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nymeria, path: "${machine-conf:data_root}/nymeria_imu/20231222_s1_kenneth_fischer_act7_56uvqd"}, *valid_transform, *valid_window]}

@@ -1,0 +1,38 @@
+# BONES-SEED G1 humanoid + SOMA human motions from the processed caches under ${machine-conf:cache_root}.
+# G1 trains on "simple" categories only; "complex" ones (human2robot) appear only on its valid side.
+defaults:
+  - transform@bones_g1_t  : humanoid_bones
+  - transform@bones_soma_t: human_xsens
+  - window                : random
+  - _self_
+
+train:
+  - _target_   : src.data.util.build_corpus
+    _recursive_: false
+    reader     : {_target_: src.data.imu.bones_seed_processed.Bones_Seed_G1_Processed_IMU_w_Lang}
+    root       : "${machine-conf:cache_root}/bones_seed_processed_v4"
+    stems      : src/config/data/stems/bones_segments/bones_g1_train.txt
+    layers     : ["${data.bones_g1_t.train}", "${data.window.train}"]
+  - _target_   : src.data.util.build_corpus
+    _recursive_: false
+    reader     : {_target_: src.data.imu.bones_seed_processed.Bones_Seed_SOMA_Processed_IMU_w_Lang}
+    root       : "${machine-conf:cache_root}/bones_seed_soma_processed_v4"
+    stems      : src/config/data/stems/bones_segments/bones_soma_train.txt
+    layers     : ["${data.bones_soma_t.train}", "${data.window.train}"]
+
+valid:
+  # Valid windows stay fixed (sliding) regardless of data/window, so metrics stay comparable.
+  - _target_   : src.data.util.build_corpus
+    _recursive_: false
+    reader     : {_target_: src.data.imu.bones_seed_processed.Bones_Seed_G1_Processed_IMU_w_Lang}
+    root       : "${machine-conf:cache_root}/bones_seed_processed_v4"
+    stems      :
+      - src/config/data/stems/bones_segments/bones_g1_valid.txt
+      - src/config/data/stems/bones_segments/bones_g1_human2robot.txt
+    layers     : ["${data.bones_g1_t.valid}", "${data.window.valid}"]
+  - _target_   : src.data.util.build_corpus
+    _recursive_: false
+    reader     : {_target_: src.data.imu.bones_seed_processed.Bones_Seed_SOMA_Processed_IMU_w_Lang}
+    root       : "${machine-conf:cache_root}/bones_seed_soma_processed_v4"
+    stems      : src/config/data/stems/bones_segments/bones_soma_valid.txt
+    layers     : ["${data.bones_soma_t.valid}", "${data.window.valid}"]

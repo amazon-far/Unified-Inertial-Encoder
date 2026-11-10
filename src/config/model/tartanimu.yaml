@@ -1,0 +1,9 @@
+# TartanIMU's released "unified" model (thirdparty/tartanimu), never trained here: evaluated by `python -m src.eval_tartanimu`.
+# Weights: from https://huggingface.co/Tartan-IMU/TartanIMU/resolve/main fetch checkpoints/unified.pt into
+# ${machine-conf:cache_root}/tartanimu/, and config/unified.yaml, config/resnet_lstm_multihead.yaml into its config/.
+_target_    : src.model.tartanimu.TartanIMU
+ckpt        : ${machine-conf:cache_root}/tartanimu/unified.pt
+config      : ${machine-conf:cache_root}/tartanimu/config/unified.yaml
+model_config: ${machine-conf:cache_root}/tartanimu/config/resnet_lstm_multihead.yaml
+# Released head (car / dog / drone / human) reading out the trunk; our corpora all use `human`.
+head        : human

@@ -1,0 +1,12 @@
+# TLIO displacement network (thirdparty/tlio ResNet1D), see src/model/tlio.py.
+# window_size follows data_conf.window_size, which must be in samples (window_unit=sample):
+# the FC head's input length is fixed at construction.
+_target_        : src.model.tlio.TLIO
+window_size     : ${data_conf.window_size}
+# Official default train-transform stack (thirdparty/tlio src/dataloader/tlio_data.py):
+yaw_aug         : true    # TransformInYawPlane: random world-yaw on input + target
+grav_perturb_deg: 5.0     # TransformPerturbGravity: input-only tilt, U(0, deg); 0 disables
+accel_bias_range: 0.2     # TransformAddNoiseBias bias shift [m/s^2], U(-r, r); 0 disables
+gyro_bias_range : 0.05    # TransformAddNoiseBias bias shift [rad/s], U(-r, r); 0 disables
+accel_noise_std : 0.0     # TransformAddNoiseBias white noise (official default 0)
+gyro_noise_std  : 0.0     # TransformAddNoiseBias white noise (official default 0)

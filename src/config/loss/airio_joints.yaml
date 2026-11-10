@@ -1,0 +1,5 @@
+# Official AirIO motion loss weights with IMUnet's full-covariance NLL (src.model.airio_joints.AirIOJoints_Loss).
+_target_   : src.model.airio_joints.AirIOJoints_Loss
+weight     : 1.0e2
+cov_weight : 1.0e-4
+huber_delta: 0.005

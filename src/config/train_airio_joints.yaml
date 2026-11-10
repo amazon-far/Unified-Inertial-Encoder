@@ -1,0 +1,46 @@
+# AirIO + joints baseline training config, used with
+# `python -m src.train_airio --config-name train_airio_joints`.
+# Windows are in samples: each experiment sets data_conf.window_size to 5 s at its dataset's rate.
+defaults:
+  - model     : airio_joints
+  - data      : rootjoint_all
+  - optim     : airio_adam
+  - loss      : airio_joints
+  - _self_
+  - experiment: null
+
+hydra:
+  run:
+    dir: ${machine-conf:exp_root}/${now:%Y-%m-%d}/${now:%H-%M-%S}
+
+debug: false
+
+data_conf:
+  window_size: 1000
+  window_step: 10
+  window_unit: sample
+
+wandb:
+  enable : true
+  entity : ${oc.env:WANDB_ENTITY,null}
+  project: FoundationIMU
+  runid  : AirIOJoints_Train
+
+meta:
+  seed       : 0
+  output     : ${hydra:runtime.output_dir}
+  resume_from: null
+
+loader:
+  batch_size     : 1024
+  num_workers    : 8
+  prefetch_factor: 1
+
+trainer:
+  accelerator            : auto
+  devices                : auto
+  precision              : 32-true   # BatchNorm in the CNN stems; fp32 keeps running stats sane
+  max_epochs             : 32
+  gradient_clip_val      : null
+  log_every_n_steps      : 1
+  accumulate_grad_batches: 1

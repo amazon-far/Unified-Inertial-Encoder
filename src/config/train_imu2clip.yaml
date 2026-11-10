@@ -1,0 +1,49 @@
+# IMU2CLIP baseline training config (src.train_imu2clip).
+# Windows are in ms; the encoder resamples each device run to model.target_len samples.
+defaults:
+  - model     : imu2clip
+  - data      : all_data
+  - optim     : imu2clip_adam
+  - loss      : imu2clip
+  - _self_
+  - experiment: null
+
+hydra:
+  run:
+    dir: ${machine-conf:exp_root}/${now:%Y-%m-%d}/${now:%H-%M-%S}
+
+# Single-process debug switch, same semantics as train.yaml.
+debug: false
+
+data_conf:
+  window_size: 4096.
+  window_step: 4096.
+  window_unit: ms   # sample | ms
+
+wandb:
+  enable : true
+  entity : ${oc.env:WANDB_ENTITY,null}
+  project: FoundationIMU
+  runid  : IMU2CLIP_Train
+
+meta:
+  seed       : 0
+  output     : ${hydra:runtime.output_dir}
+  # Full-state resume checkpoint (weights + optimizer + counters); null to start fresh.
+  resume_from: null
+
+loader:
+  # Official IMU2CLIP batch size: the in-batch negatives are part of the recipe, so do not scale it.
+  batch_size     : 32
+  num_workers    : 8
+  prefetch_factor: 1
+
+trainer:
+  accelerator            : auto
+  # Single process so the full batch shares one InfoNCE softmax.
+  devices                : 1
+  precision              : 32-true   # small conv+GRU encoder w/ GroupNorm; fp32 keeps it stable
+  max_epochs             : 32
+  gradient_clip_val      : 1.0
+  log_every_n_steps      : 1
+  accumulate_grad_batches: 1

@@ -1,0 +1,93 @@
+# NaturalMotion (XSens MVN, .h5) recordings from ${machine-conf:data_root}/vt_natural_motion/h5-dataset,
+# 9-IMU set, split balanced by duration.
+defaults:
+  - transform: empty
+  - window   : sliding
+  - _self_
+
+train:
+  # The first entry defines the shared anchors; all other entries merge them and override only the path.
+  - &seq
+    _target_   : src.data.util.build_nested_seq
+    _recursive_: false   # layers must reach build_nested_seq un-instantiated
+    layers:
+      - &nm
+        _target_      : src.data.imu.naturalmotion.NaturalMotion_XSens_IMU
+        target_sensors: ["left_foot", "left_lower_leg", "right_foot", "right_lower_leg", "left_hand", "left_forearm", "right_hand", "right_forearm", "pelvis"]
+        path          : ${machine-conf:data_root}/vt_natural_motion/h5-dataset/P10_Day_1_2.h5
+      - &train_transform ${data.transform.train}
+      - &train_window ${data.window.train}
+
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:data_root}/vt_natural_motion/h5-dataset/P11_Day_1_1.h5"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:data_root}/vt_natural_motion/h5-dataset/P11_Day_1_2.h5"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:data_root}/vt_natural_motion/h5-dataset/P12_Day_1_1.h5"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:data_root}/vt_natural_motion/h5-dataset/P12_Day_1_2.h5"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:data_root}/vt_natural_motion/h5-dataset/P13_Day_1_1.h5"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:data_root}/vt_natural_motion/h5-dataset/P13_Day_1_2.h5"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:data_root}/vt_natural_motion/h5-dataset/P13_Day_1_4.h5"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:data_root}/vt_natural_motion/h5-dataset/P13_Day_2_1.h5"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:data_root}/vt_natural_motion/h5-dataset/P13_Day_2_2.h5"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:data_root}/vt_natural_motion/h5-dataset/P1_Day_1_1.h5"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:data_root}/vt_natural_motion/h5-dataset/P1_Day_1_2.h5"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:data_root}/vt_natural_motion/h5-dataset/P1_Day_1_3.h5"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:data_root}/vt_natural_motion/h5-dataset/P1_Day_1_4.h5"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:data_root}/vt_natural_motion/h5-dataset/P1_Day_1_5.h5"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:data_root}/vt_natural_motion/h5-dataset/P2_Day_1_1.h5"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:data_root}/vt_natural_motion/h5-dataset/P2_Day_1_2.h5"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:data_root}/vt_natural_motion/h5-dataset/P2_Day_1_3.h5"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:data_root}/vt_natural_motion/h5-dataset/P2_Day_2_2.h5"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:data_root}/vt_natural_motion/h5-dataset/P2_Day_3_1.h5"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:data_root}/vt_natural_motion/h5-dataset/P2_Day_3_2.h5"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:data_root}/vt_natural_motion/h5-dataset/P2_Day_4_1.h5"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:data_root}/vt_natural_motion/h5-dataset/P2_Day_4_2.h5"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:data_root}/vt_natural_motion/h5-dataset/P3_Day_1_1.h5"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:data_root}/vt_natural_motion/h5-dataset/P3_Day_1_3.h5"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:data_root}/vt_natural_motion/h5-dataset/P4_Day_1_1.h5"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:data_root}/vt_natural_motion/h5-dataset/P4_Day_1_2.h5"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:data_root}/vt_natural_motion/h5-dataset/P4_Day_1_3.h5"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:data_root}/vt_natural_motion/h5-dataset/P4_Day_2_1.h5"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:data_root}/vt_natural_motion/h5-dataset/P5_Day_1_1.h5"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:data_root}/vt_natural_motion/h5-dataset/P6_Day_1_1.h5"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:data_root}/vt_natural_motion/h5-dataset/P6_Day_2_1.h5"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:data_root}/vt_natural_motion/h5-dataset/P7_Day_1_1.h5"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:data_root}/vt_natural_motion/h5-dataset/P8_Day_1_1.h5"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:data_root}/vt_natural_motion/h5-dataset/P8_Day_1_2.h5"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:data_root}/vt_natural_motion/h5-dataset/P9_Day_1_1.h5"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:data_root}/vt_natural_motion/h5-dataset/P9_Day_1_2.h5"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:data_root}/vt_natural_motion/h5-dataset/W1_Day_1_3.h5"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:data_root}/vt_natural_motion/h5-dataset/W1_Day_1_5.h5"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:data_root}/vt_natural_motion/h5-dataset/W1_Day_1_6.h5"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:data_root}/vt_natural_motion/h5-dataset/W2_Day_1_1.h5"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:data_root}/vt_natural_motion/h5-dataset/W2_Day_1_2.h5"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:data_root}/vt_natural_motion/h5-dataset/W2_Day_2_1.h5"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:data_root}/vt_natural_motion/h5-dataset/W2_Day_2_2.h5"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:data_root}/vt_natural_motion/h5-dataset/W2_Day_2_3.h5"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:data_root}/vt_natural_motion/h5-dataset/W2_Day_2_4.h5"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:data_root}/vt_natural_motion/h5-dataset/W2_Day_3_1.h5"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:data_root}/vt_natural_motion/h5-dataset/W3_Day_1_1.h5"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:data_root}/vt_natural_motion/h5-dataset/W3_Day_1_2.h5"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:data_root}/vt_natural_motion/h5-dataset/W3_Day_1_3.h5"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:data_root}/vt_natural_motion/h5-dataset/W4_Day_1_3.h5"}, *train_transform, *train_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:data_root}/vt_natural_motion/h5-dataset/W4_Day_1_6.h5"}, *train_transform, *train_window]}
+
+valid:
+  # Valid windows stay fixed (sliding) regardless of data/window, so metrics stay comparable.
+  - <<: *seq
+    layers:
+      - {<<: *nm, path: "${machine-conf:data_root}/vt_natural_motion/h5-dataset/P10_Day_1_1.h5"}
+      - &valid_transform ${data.transform.valid}
+      - &valid_window ${data.window.valid}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:data_root}/vt_natural_motion/h5-dataset/P13_Day_1_3.h5"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:data_root}/vt_natural_motion/h5-dataset/P13_Day_1_5.h5"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:data_root}/vt_natural_motion/h5-dataset/P13_Day_1_6.h5"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:data_root}/vt_natural_motion/h5-dataset/P13_Day_2_3.h5"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:data_root}/vt_natural_motion/h5-dataset/P2_Day_2_1.h5"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:data_root}/vt_natural_motion/h5-dataset/P3_Day_1_2.h5"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:data_root}/vt_natural_motion/h5-dataset/W1_Day_1_1.h5"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:data_root}/vt_natural_motion/h5-dataset/W1_Day_1_2.h5"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:data_root}/vt_natural_motion/h5-dataset/W1_Day_1_4.h5"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:data_root}/vt_natural_motion/h5-dataset/W2_Day_3_2.h5"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:data_root}/vt_natural_motion/h5-dataset/W4_Day_1_1.h5"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:data_root}/vt_natural_motion/h5-dataset/W4_Day_1_2.h5"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:data_root}/vt_natural_motion/h5-dataset/W4_Day_1_4.h5"}, *valid_transform, *valid_window]}
+  - {<<: *seq, layers: [{<<: *nm, path: "${machine-conf:data_root}/vt_natural_motion/h5-dataset/W4_Day_1_5.h5"}, *valid_transform, *valid_window]}

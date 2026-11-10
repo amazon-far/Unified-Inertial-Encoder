@@ -1,0 +1,33 @@
+# humanoid_bones plus a real-robot disturbance model (AddVibration + AddImpact) calibrated on the
+# SuperOdom G1 hardware. Both passes corrupt only the measured channels, so denoise targets stay clean.
+train:
+  - _target_: src.data.imu.transform.AddGravity
+  - _target_: src.data.imu.transform.RandomEmbodimentScale
+    scale_range: [1.0, 1.33]        # grow humanoid -> human size
+  - _target_: src.data.imu.transform.RandomTimeWarp
+    speed_range: [0.9, 1.6]         # speed up deliberate teleop toward human motion intensity
+  - _target_: src.data.imu.transform.AddNoise
+    acc_noise_density : 1.e-2
+    gyro_noise_density: 3.e-4
+  - _target_: src.data.imu.transform.AddBias
+    acc_bias_randwalk : 5.e-4
+    gyro_bias_randwalk: 5.e-5
+  - _target_: src.data.imu.transform.AddVibration
+  - _target_: src.data.imu.transform.AddImpact
+  # No RandomFrequencyReduction: this corpus is 120 Hz native, already below the real robot's rate.
+  - _target_: src.data.imu.transform.AddTimestampJitter
+    cv_range: [0., 0.15]            # capped at the real robot's spacing CV
+  - _target_: src.data.imu.transform.DeterministicDropDevice
+
+valid:
+  # No scale/time-warp: valid stays at the native humanoid size and rate.
+  - _target_: src.data.imu.transform.AddGravity
+  - _target_: src.data.imu.transform.AddNoise
+    acc_noise_density : 1.e-2
+    gyro_noise_density: 3.e-4
+  - _target_: src.data.imu.transform.AddBias
+    acc_bias_randwalk : 5.e-4
+    gyro_bias_randwalk: 5.e-5
+  - _target_: src.data.imu.transform.AddVibration
+  - _target_: src.data.imu.transform.AddImpact
+  - _target_: src.data.imu.transform.DeterministicDropDevice

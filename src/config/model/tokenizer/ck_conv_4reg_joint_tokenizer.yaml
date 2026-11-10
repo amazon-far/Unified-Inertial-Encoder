@@ -1,0 +1,15 @@
+# ck_conv_4reg_tokenizer with the joint-aware base tokenizer (src.model.ablation_joint.JointAware_CK_Tokenizer).
+_target_: src.model.tokenizer.AddRegister
+output_dim    : ${model.token_dim}
+num_register  : 4
+
+base_tokenizer:
+  _target_: src.model.ablation_joint.JointAware_CK_Tokenizer
+
+  output_dim    : ${model.token_dim}
+  window_span_ms: ${model.token_size}
+  activation    : silu
+  num_taps      : 4
+  micro_split   : 4
+  num_trunk_features: ${len:${model.feature_from_trunk}}
+  num_joint_sites   : ${model.num_joint_sites}

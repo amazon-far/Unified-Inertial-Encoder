@@ -1,0 +1,98 @@
+# @package _global_
+# EXP16-pelvis: multi-IMU ablation, exp15_full_train_C with every corpus restricted to the pelvis IMU.
+# Usage: python -m src.train experiment=exp16_multiimu_pelvis
+defaults:
+  - /data/transform@data.superodom_t             : prune_device
+  - override /model                              : continuous_foundation_imu_full
+  - override /data/transform@data.bones_soma_t   : human_xsens_real_disturb
+  - override /data/transform@data.nymeria_t      : human_xsens_real_disturb
+  - override /data/transform@data.naturalmotion_t: human_xsens_real_disturb
+  - override /data/transform@data.bones_g1_t     : humanoid_bones_real_disturb
+
+data:
+  train:
+    - _target_   : src.data.util.build_corpus
+      _recursive_: false
+      reader     :
+        _target_      : src.data.imu.nymeria_processed_lang.Nymeria_XSens_Processed_IMU_Language
+        target_sensors: ["pelvis"]
+      root       : "${machine-conf:cache_root}/nymeria_imu_processed_v3"
+      stems      : src/config/data/stems/nymeria_train.txt
+      layers     : ["${data.nymeria_t.train}", "${data.window.train}"]
+    - _target_   : src.data.util.build_corpus
+      _recursive_: false
+      reader     :
+        _target_      : src.data.imu.naturalmotion_processed_lang.NaturalMotion_XSens_Processed_IMU_Language
+        target_sensors: ["pelvis"]
+      root       : "${machine-conf:cache_root}/vt_natural_motion_processed_v3"
+      stems      : src/config/data/stems/naturalmotion_train.txt
+      layers     : ["${data.naturalmotion_t.train}", "${data.window.train}"]
+    - _target_   : src.data.util.build_corpus
+      _recursive_: false
+      reader     :
+        _target_      : src.data.imu.bones_seed_processed.Bones_Seed_SOMA_Processed_IMU_w_Lang
+        target_sensors: ["pelvis"]
+      root       : "${machine-conf:cache_root}/bones_seed_soma_processed_v4"
+      stems      : src/config/data/stems/bones_segments/bones_soma_train.txt
+      layers     : ["${data.bones_soma_t.train}", "${data.window.train}"]
+    - _target_   : src.data.util.build_corpus
+      _recursive_: false
+      reader     :
+        _target_      : src.data.imu.bones_seed_processed.Bones_Seed_G1_Processed_IMU_w_Lang
+        target_sensors: ["pelvis"]
+      root       : "${machine-conf:cache_root}/bones_seed_processed_v4"
+      stems      : src/config/data/stems/bones_segments/bones_g1_train.txt
+      layers     : ["${data.bones_g1_t.train}", "${data.window.train}"]
+
+  valid:
+    - _target_   : src.data.util.build_corpus
+      _recursive_: false
+      reader     :
+        _target_      : src.data.imu.nymeria_processed_lang.Nymeria_XSens_Processed_IMU_Language
+        target_sensors: ["pelvis"]
+      root       : "${machine-conf:cache_root}/nymeria_imu_processed_v3"
+      stems      : src/config/data/stems/nymeria_valid.txt
+      layers     : ["${data.nymeria_t.valid}", "${data.window.valid}"]
+    - _target_   : src.data.util.build_corpus
+      _recursive_: false
+      reader     :
+        _target_      : src.data.imu.naturalmotion_processed_lang.NaturalMotion_XSens_Processed_IMU_Language
+        target_sensors: ["pelvis"]
+      root       : "${machine-conf:cache_root}/vt_natural_motion_processed_v3"
+      stems      : src/config/data/stems/naturalmotion_valid.txt
+      layers     : ["${data.naturalmotion_t.valid}", "${data.window.valid}"]
+    - _target_   : src.data.util.build_corpus
+      _recursive_: false
+      reader     :
+        _target_      : src.data.imu.bones_seed_processed.Bones_Seed_SOMA_Processed_IMU_w_Lang
+        target_sensors: ["pelvis"]
+      root       : "${machine-conf:cache_root}/bones_seed_soma_processed_v4"
+      stems      : src/config/data/stems/bones_segments/bones_soma_valid.txt
+      layers     : ["${data.bones_soma_t.valid}", "${data.window.valid}"]
+    - _target_   : src.data.util.build_corpus
+      _recursive_: false
+      reader     :
+        _target_      : src.data.imu.bones_seed_processed.Bones_Seed_G1_Processed_IMU_w_Lang
+        target_sensors: ["pelvis"]
+      root       : "${machine-conf:cache_root}/bones_seed_processed_v4"
+      stems      :
+        - src/config/data/stems/bones_segments/bones_g1_valid.txt
+        - src/config/data/stems/bones_segments/bones_g1_human2robot.txt
+      layers     : ["${data.bones_g1_t.valid}", "${data.window.valid}"]
+    - _target_   : src.data.util.build_corpus
+      _recursive_: false
+      reader     :
+        _target_      : src.data.imu.humanoid_superodom_npz.Humanoid_SuperOdom_NPZ_Processed_Language
+        target_sensors: ["pelvis"]
+      root       : "${machine-conf:cache_root}/humanoid_superodom_clips_v2"
+      stems      : src/config/data/stems/superodom_clips_eval.txt
+      layers     : ["${data.superodom_t.valid}", "${data.window.valid}"]
+
+wandb:
+  runid: Exp16_MultiIMU_Pelvis
+
+loader:
+  batch_size: 128
+
+trainer:
+  max_epochs: 64

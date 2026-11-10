@@ -1,0 +1,14 @@
+# FoundationIMU with the continuous-kernel tokenizer, reading out the last trunk block.
+defaults:
+  - tokenizer: ck_conv_4reg_tokenizer
+  - trunk    : full_aa_transformer
+  - adaptor  : empty
+  - _self_
+
+_target_        : src.model.model.FoundationIMU
+token_dim       : 768
+token_size      : 125.0
+token_unit      : ms
+is_causal       : false
+trainable       : all
+feature_from_trunk: [5]

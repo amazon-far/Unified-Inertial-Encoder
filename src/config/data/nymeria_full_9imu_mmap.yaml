@@ -1,0 +1,26 @@
+# Nymeria XSens sequences (9-IMU subset) from the mmap-friendly cache at
+# ${machine-conf:cache_root}/nymeria_imu_processed_v3, written by src.scripts.nymeria_imu_process.
+defaults:
+  - transform: empty
+  - window   : sliding
+  - _self_
+
+train:
+  - _target_   : src.data.util.build_corpus
+    _recursive_: false
+    reader     :
+      _target_      : src.data.imu.nymeria_processed.Nymeria_XSens_Processed_IMU
+      target_sensors: ["left_foot", "left_lower_leg", "right_foot", "right_lower_leg", "left_hand", "left_forearm", "right_hand", "right_forearm", "pelvis"]
+    root       : "${machine-conf:cache_root}/nymeria_imu_processed_v3"
+    stems      : src/config/data/stems/nymeria_train.txt
+    layers     : ["${data.transform.train}", "${data.window.train}"]
+
+valid:
+  - _target_   : src.data.util.build_corpus
+    _recursive_: false
+    reader     :
+      _target_      : src.data.imu.nymeria_processed.Nymeria_XSens_Processed_IMU
+      target_sensors: ["left_foot", "left_lower_leg", "right_foot", "right_lower_leg", "left_hand", "left_forearm", "right_hand", "right_forearm", "pelvis"]
+    root       : "${machine-conf:cache_root}/nymeria_imu_processed_v3"
+    stems      : src/config/data/stems/nymeria_valid.txt
+    layers     : ["${data.transform.valid}", "${data.window.valid}"]

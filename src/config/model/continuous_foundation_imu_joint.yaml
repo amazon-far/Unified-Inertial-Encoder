@@ -1,0 +1,15 @@
+# continuous_foundation_imu_full on root IMU + joint input (src.model.ablation_joint.FoundationIMU_Ablation_Joint).
+defaults:
+  - tokenizer: ck_conv_4reg_joint_tokenizer
+  - trunk    : full_aa_transformer
+  - adaptor  : empty
+  - _self_
+
+_target_        : src.model.ablation_joint.FoundationIMU_Ablation_Joint
+token_dim       : 768
+token_size      : 125.0
+token_unit      : ms
+is_causal       : false
+trainable       : all
+feature_from_trunk: [1, 3, 5]
+num_joint_sites : 11        # relative joints (rootjoint caches, joints=relative)

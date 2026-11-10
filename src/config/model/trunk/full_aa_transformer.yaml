@@ -1,0 +1,10 @@
+# Transformer trunk alternating device (within-site) and full attention blocks.
+_target_: src.model.transformer.Transformer
+
+feature_dim     : ${model.token_dim}
+layer           : 6
+num_heads       : 8
+layer_type      : ["device", "full", "device", "full", "device", "full"]
+is_causal       : ${model.is_causal}
+use_rope        : true
+mlp_active      : silu

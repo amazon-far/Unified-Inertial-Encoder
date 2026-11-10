@@ -1,0 +1,12 @@
+# ImageBind's IMU tower (thirdparty/imagebind), never trained here: evaluated as-is by
+# `python -m src.scripts.evaluate_language_classification_imagebind` on 10 s windows (--window-ms 10000).
+# Weights: download https://dl.fbaipublicfiles.com/imagebind/imagebind_huge.pth into ${machine-conf:cache_root}/imagebind/.
+_target_  : src.model.imagebind.ImageBind_IMU
+ckpt      : ${machine-conf:cache_root}/imagebind/imagebind_huge.pth
+sensor    : head
+modalities: ["imu"]   # the sharded eval workers need only the IMU tower; the gallery pass adds "text"
+chunk     : 256       # max sensor runs encoded per forward (251 tokens of activations each)
+window_tol: 0.05      # tolerated |run - window_ms| / window_ms before a run is refused or dropped
+# `window_ms` is deliberately unset: the evaluator passes --window-ms, so the model validates what it is fed.
+# Axis mapping from our body frame onto the encoder's; sweep with `--frame all`. "xsens" = unchanged.
+frame     : xsens

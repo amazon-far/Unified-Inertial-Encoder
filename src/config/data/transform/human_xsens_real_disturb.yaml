@@ -1,0 +1,34 @@
+# human_xsens plus the real-robot disturbance model (AddVibration + AddImpact) for the human corpora.
+# The disturbance passes must stay after the motion augmentations and before the prune.
+train:
+  - _target_: src.data.imu.transform.AddGravity
+  - _target_: src.data.imu.transform.RandomEmbodimentScale
+    scale_range: [0.75, 1.0]        # shrink human -> humanoid size
+  - _target_: src.data.imu.transform.RandomTimeWarp
+    speed_range: [0.7, 1.3]         # span the humanoid's slower motion and faster human motion
+  - _target_: src.data.imu.transform.AddNoise
+    acc_noise_density : 1.e-2
+    gyro_noise_density: 3.e-4
+  - _target_: src.data.imu.transform.AddBias
+    acc_bias_randwalk : 5.e-4
+    gyro_bias_randwalk: 5.e-5
+  - _target_: src.data.imu.transform.AddVibration
+  - _target_: src.data.imu.transform.AddImpact
+  - _target_: src.data.imu.transform.RandomFrequencyReduction
+    freq_range: [120., 240.]        # 238/240Hz corpora draw m in {1,2}; a no-op at SOMA's 120Hz
+  - _target_: src.data.imu.transform.AddTimestampJitter
+    cv_range  : [0., 0.15]          # capped at the real robot's spacing CV
+  - _target_: src.data.imu.transform.DeterministicDropDevice   # 17 -> 12 humanoid sites
+
+valid:
+  # No scale/time-warp: valid uses fixed ranges so metrics stay epoch-stable.
+  - _target_: src.data.imu.transform.AddGravity
+  - _target_: src.data.imu.transform.AddNoise
+    acc_noise_density : 1.e-2
+    gyro_noise_density: 3.e-4
+  - _target_: src.data.imu.transform.AddBias
+    acc_bias_randwalk : 5.e-4
+    gyro_bias_randwalk: 5.e-5
+  - _target_: src.data.imu.transform.AddVibration
+  - _target_: src.data.imu.transform.AddImpact
+  - _target_: src.data.imu.transform.DeterministicDropDevice

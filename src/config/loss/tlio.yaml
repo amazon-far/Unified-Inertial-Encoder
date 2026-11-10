@@ -1,0 +1,4 @@
+# TLIO Gaussian-NLL displacement loss, see src/model/tlio.py.
+_target_            : src.model.tlio.TLIO_Loss
+logstd_warmup_epochs: 10      # log-std branch detached for the first N epochs (TLIO get_loss schedule)
+min_sigma           : 1.e-3   # sigma floor [m] (TLIO MIN_LOG_STD = log(1e-3))

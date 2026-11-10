@@ -1,0 +1,35 @@
+# @package _global_
+# EXP10: AirIO baseline on NaturalMotion, pelvis IMU only, 5 s windows.
+# Usage: python -m src.train_airio experiment=exp10_airio_naturalmotion
+defaults:
+  - override /data/transform@data.naturalmotion_t: human_xsens_real_disturb
+
+data_conf:
+  window_size: 1200
+
+data:
+  train:
+    - _target_   : src.data.util.build_corpus
+      _recursive_: false
+      reader     :
+        _target_      : src.data.imu.naturalmotion_processed_lang.NaturalMotion_XSens_Processed_IMU_Language
+        target_sensors: ["pelvis"]
+      root       : "${machine-conf:cache_root}/vt_natural_motion_processed_v3"
+      stems      : src/config/data/stems/naturalmotion_train.txt
+      layers     : ["${data.naturalmotion_t.train}", "${data.window.train}"]
+
+  valid:
+    - _target_   : src.data.util.build_corpus
+      _recursive_: false
+      reader     :
+        _target_      : src.data.imu.naturalmotion_processed_lang.NaturalMotion_XSens_Processed_IMU_Language
+        target_sensors: ["pelvis"]
+      root       : "${machine-conf:cache_root}/vt_natural_motion_processed_v3"
+      stems      : src/config/data/stems/naturalmotion_valid.txt
+      layers     : ["${data.naturalmotion_t.valid}", "${data.window.valid}"]
+
+wandb:
+  runid: Exp10_AirIO_naturalmotion
+
+trainer:
+  max_epochs: 187

@@ -1,0 +1,46 @@
+# Velocity, language, time-domain denoising and velocity-driven trajectory supervision.
+# The trajectory loss uses detached rotations and logs ATE/AOE and per-horizon RTE/ROE.
+_target_  : src.model.loss.LossCompose_AutoBalance
+anchor    : "L_denoise"
+min_lambda: 0.02
+max_lambda: 50.
+ema_decay : 0.990
+
+# scale: 'auto' -> gradient-norm balanced against the anchor (EMA, clamped to [min, max]_lambda);
+# a number -> fixed multiplier, loss excluded from the grad-probe machinery.
+funcs:
+  - name : "L_denoise"
+    grad : true
+    scale: auto
+    func: &denoise_loss
+      _target_: src.model.loss.Denoise_Loss
+      masked_weight   : 0.0
+      unmasked_weight : 1.0
+
+  - name : "L_vel"
+    grad : true
+    scale: auto
+    func: &velocity_loss
+      _target_        : src.model.loss.Velocity_Loss
+      masked_weight   : 0.0
+      unmasked_weight : 1.0
+      huber_delta     : null  # m/s bound for Huber on the velocity-error magnitude; null -> plain L1
+
+  - name : "L_Lang"
+    grad : true
+    scale: 1.0
+    func:
+      _target_        : src.model.loss.Lang_CLIP_Loss
+
+  - name : "L_traj_vel"
+    grad : true
+    scale: auto
+    func:
+      _target_       : src.model.loss.Trajectory_Velocity_Loss
+      horizons       : [250.0, 1000.0, 2000.0]
+      strides        : null
+      unit           : ms
+      integrator     : rk4
+      precision      : float32
+      huber_delta    : null
+      detach_rotation: true

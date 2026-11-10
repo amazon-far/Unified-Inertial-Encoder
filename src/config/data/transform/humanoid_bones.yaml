@@ -1,0 +1,26 @@
+# Domain-alignment stack for the humanoid corpus (BONES-SEED G1): adds gravity to the gravity-free cache,
+# grows toward human size and speed, and injects noise/bias.
+train:
+  - _target_: src.data.imu.transform.AddGravity
+  - _target_: src.data.imu.transform.RandomEmbodimentScale
+    scale_range: [1.0, 1.33]        # grow humanoid -> human size
+  - _target_: src.data.imu.transform.RandomTimeWarp
+    speed_range: [0.9, 1.6]         # speed up deliberate teleop toward human motion intensity
+  - _target_: src.data.imu.transform.AddNoise
+    acc_noise_density : 1.e-2
+    gyro_noise_density: 3.e-4
+  - _target_: src.data.imu.transform.AddBias
+    acc_bias_randwalk : 5.e-4
+    gyro_bias_randwalk: 5.e-5
+  - _target_: src.data.imu.transform.DeterministicDropDevice
+
+valid:
+  # No scale/time-warp: valid stays at the native humanoid size and rate, the reference humans are mapped onto.
+  - _target_: src.data.imu.transform.AddGravity
+  - _target_: src.data.imu.transform.AddNoise
+    acc_noise_density : 1.e-2
+    gyro_noise_density: 3.e-4
+  - _target_: src.data.imu.transform.AddBias
+    acc_bias_randwalk : 5.e-4
+    gyro_bias_randwalk: 5.e-5
+  - _target_: src.data.imu.transform.DeterministicDropDevice

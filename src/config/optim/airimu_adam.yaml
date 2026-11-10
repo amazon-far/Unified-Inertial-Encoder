@@ -1,0 +1,4 @@
+# Official AirIMU optimizer; the ReduceLROnPlateau schedule lives in LitAirIMU.
+_target_    : torch.optim.Adam
+lr          : 1.0e-3
+weight_decay: 1.0e-4

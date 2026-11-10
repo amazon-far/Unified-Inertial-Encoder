@@ -1,0 +1,23 @@
+# BONES-SEED G1 motions read as raw CSVs from ${machine-conf:data_root}/bones_seed.
+# src.scripts.bonesseed_imu_process caches this into bones_seed.yaml, which training normally uses.
+defaults:
+  - transform: add_imu_noise # BONES-SEED is gravity-free: AddGravity leads this stack
+  - window   : random
+  - _self_
+
+train:
+  - _target_   : src.data.util.build_corpus
+    _recursive_: false
+    reader     : {_target_: src.data.imu.bones_seed_g1.Bones_Seed_IMU_w_GT_Lang}
+    root       : "${machine-conf:data_root}/bones_seed"
+    stems      : src/config/data/stems/bones_g1_raw_train.txt
+    layers     : ["${data.transform.train}", "${data.window.train}"]
+
+valid:
+  # Valid windows stay fixed (sliding) regardless of data/window, so metrics stay comparable.
+  - _target_   : src.data.util.build_corpus
+    _recursive_: false
+    reader     : {_target_: src.data.imu.bones_seed_g1.Bones_Seed_IMU_w_GT_Lang}
+    root       : "${machine-conf:data_root}/bones_seed"
+    stems      : src/config/data/stems/bones_g1_raw_valid.txt
+    layers     : ["${data.transform.valid}", "${data.window.valid}"]

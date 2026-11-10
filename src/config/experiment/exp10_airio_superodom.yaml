@@ -1,0 +1,32 @@
+# @package _global_
+# EXP10: AirIO baseline on SuperOdom G1, pelvis IMU only, 5 s windows.
+# Usage: python -m src.train_airio experiment=exp10_airio_superodom
+defaults:
+  # Real robot signal already carries gravity; a corruption stack would add it twice.
+  - /data/transform@data.superodom_t: empty
+
+data_conf:
+  window_size: 1000
+
+data:
+  train:
+    - _target_   : src.data.util.build_corpus
+      _recursive_: false
+      reader     : {_target_: src.data.imu.humanoid_superodom_npz.Humanoid_SuperOdom_NPZ_Processed_Language, target_sensors: ["pelvis"]}
+      root       : "${machine-conf:cache_root}/humanoid_superodom_clips_v2"
+      stems      : src/config/data/stems/superodom_clips_train.txt
+      layers     : ["${data.superodom_t.train}", "${data.window.train}"]
+
+  valid:
+    - _target_   : src.data.util.build_corpus
+      _recursive_: false
+      reader     : {_target_: src.data.imu.humanoid_superodom_npz.Humanoid_SuperOdom_NPZ_Processed_Language, target_sensors: ["pelvis"]}
+      root       : "${machine-conf:cache_root}/humanoid_superodom_clips_v2"
+      stems      : src/config/data/stems/superodom_clips_eval.txt
+      layers     : ["${data.superodom_t.valid}", "${data.window.valid}"]
+
+wandb:
+  runid: Exp10_AirIO_superodom
+
+trainer:
+  max_epochs: 64

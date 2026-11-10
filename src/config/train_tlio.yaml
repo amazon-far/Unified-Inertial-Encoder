@@ -1,0 +1,48 @@
+# TLIO baseline training config (src.train_tlio).
+# Windows are in samples, not ms: the conv/FC stack needs a fixed input length.
+defaults:
+  - model     : tlio
+  - data      : all_data
+  - optim     : tlio_adam
+  - loss      : tlio
+  - _self_
+  - experiment: null
+
+hydra:
+  run:
+    dir: ${machine-conf:exp_root}/${now:%Y-%m-%d}/${now:%H-%M-%S}
+
+# Single-process debug switch, same semantics as train.yaml.
+debug: false
+
+data_conf:
+  window_size: 200
+  window_step: 10
+  window_unit: sample
+
+wandb:
+  enable : true
+  entity : ${oc.env:WANDB_ENTITY,null}
+  project: FoundationIMU
+  runid  : TLIO_Train
+
+meta:
+  seed       : 0
+  output     : ${hydra:runtime.output_dir}
+  # Full-state resume checkpoint (weights + optimizer + counters); null to start fresh.
+  resume_from: null
+
+loader:
+  # Official TLIO batch size.
+  batch_size     : 1024
+  num_workers    : 8
+  prefetch_factor: 1
+
+trainer:
+  accelerator            : auto
+  devices                : auto
+  precision              : 32-true   # small ResNet w/ BatchNorm; fp32 keeps running stats sane
+  max_epochs             : 32
+  gradient_clip_val      : 0.1   # official TLIO clips grad norm at 0.1
+  log_every_n_steps      : 1
+  accumulate_grad_batches: 1

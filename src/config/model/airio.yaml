@@ -1,0 +1,3 @@
+# AirIO motion network (vendored from thirdparty/airio): body-frame IMU + attitude -> body velocity + diagonal covariance.
+_target_   : src.model.airio.AirIO
+window_size: ${data_conf.window_size}

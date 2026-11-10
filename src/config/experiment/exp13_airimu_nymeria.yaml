@@ -1,0 +1,32 @@
+# @package _global_
+# EXP13: AirIMU correction network for the AirIO EKF on Nymeria, pelvis IMU only, 5 s windows.
+# Usage: python -m src.train_airimu experiment=exp13_airimu_nymeria
+defaults:
+  - override /data/transform@data.nymeria_t: human_xsens_real_disturb
+
+data_conf:
+  window_size: 1200
+
+data:
+  train:
+    - _target_   : src.data.util.build_corpus
+      _recursive_: false
+      reader     :
+        _target_      : src.data.imu.nymeria_processed_lang.Nymeria_XSens_Processed_IMU_Language
+        target_sensors: ["pelvis"]
+      root       : "${machine-conf:cache_root}/nymeria_imu_processed_v3"
+      stems      : src/config/data/stems/nymeria_train.txt
+      layers     : ["${data.nymeria_t.train}", "${data.window.train}"]
+
+  valid:
+    - _target_   : src.data.util.build_corpus
+      _recursive_: false
+      reader     :
+        _target_      : src.data.imu.nymeria_processed_lang.Nymeria_XSens_Processed_IMU_Language
+        target_sensors: ["pelvis"]
+      root       : "${machine-conf:cache_root}/nymeria_imu_processed_v3"
+      stems      : src/config/data/stems/nymeria_valid.txt
+      layers     : ["${data.nymeria_t.valid}", "${data.window.valid}"]
+
+wandb:
+  runid: Exp13_AirIMU_nymeria

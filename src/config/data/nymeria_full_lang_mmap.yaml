@@ -1,0 +1,26 @@
+# Nymeria XSens sequences from the mmap-friendly cache at ${machine-conf:cache_root}/nymeria_imu_processed_v3
+# (src.scripts.nymeria_imu_process), with temporal language from src.scripts.nymeria_lang_process.
+defaults:
+  - transform: add_g_noise_rand_dropdev
+  - window   : random
+  - _self_
+
+train:
+  - _target_   : src.data.util.build_corpus
+    _recursive_: false
+    reader     :
+      _target_      : src.data.imu.nymeria_processed_lang.Nymeria_XSens_Processed_IMU_Language
+      target_sensors: ["pelvis", "head", "torso_t8", "left_shoulder", "left_upper_arm", "left_forearm", "left_hand", "right_shoulder", "right_upper_arm", "right_forearm", "right_hand", "left_upper_leg", "left_lower_leg", "left_foot", "right_upper_leg", "right_lower_leg", "right_foot"]
+    root       : "${machine-conf:cache_root}/nymeria_imu_processed_v3"
+    stems      : src/config/data/stems/nymeria_train.txt
+    layers     : ["${data.transform.train}", "${data.window.train}"]
+
+valid:
+  - _target_   : src.data.util.build_corpus
+    _recursive_: false
+    reader     :
+      _target_      : src.data.imu.nymeria_processed_lang.Nymeria_XSens_Processed_IMU_Language
+      target_sensors: ["pelvis", "head", "torso_t8", "left_shoulder", "left_upper_arm", "left_forearm", "left_hand", "right_shoulder", "right_upper_arm", "right_forearm", "right_hand", "left_upper_leg", "left_lower_leg", "left_foot", "right_upper_leg", "right_lower_leg", "right_foot"]
+    root       : "${machine-conf:cache_root}/nymeria_imu_processed_v3"
+    stems      : src/config/data/stems/nymeria_valid.txt
+    layers     : ["${data.transform.valid}", "${data.window.valid}"]

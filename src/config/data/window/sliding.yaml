@@ -1,0 +1,12 @@
+# Train: sliding windows with the configured step. Valid: non-overlapping (step = window_size), so metrics
+# stay comparable.
+train:
+  _target_   : src.data.imu.window.SlidingWindow_IMU
+  window_size: ${data_conf.window_size}
+  window_unit: ${data_conf.window_unit}
+  step_size  : ${data_conf.window_step}
+valid:
+  _target_   : src.data.imu.window.SlidingWindow_IMU
+  window_size: ${data_conf.window_size}
+  window_unit: ${data_conf.window_unit}
+  step_size  : ${data_conf.window_size}

@@ -1,0 +1,14 @@
+# Hybrid Muon + AdamW optimizer.
+_target_: src.model.optimizer_util.AdamW_Muon_Hybrid_Optimizer
+
+muon_lr           : 2.e-3
+muon_weight_decay : 1.e-3
+muon_momentum     : 0.95
+muon_nesterov     : true
+muon_ns_steps     : 5
+muon_adjust_lr_fn : match_rms_adamw
+
+adamw_lr          : 5.e-3
+adamw_weight_decay: 1.e-3
+adamw_betas       : [0.9, 0.999]
+adamw_eps         : 1.e-8

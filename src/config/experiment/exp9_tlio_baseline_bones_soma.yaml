@@ -1,0 +1,25 @@
+# @package _global_
+# EXP9: TLIO baseline on BONES-SEED SOMA, pelvis IMU only.
+# Usage: python -m src.train_tlio experiment=exp9_tlio_baseline_bones_soma
+defaults:
+  - override /data/transform@data.bones_soma_t: human_xsens_real_disturb
+
+data:
+  train:
+    - _target_   : src.data.util.build_corpus
+      _recursive_: false
+      reader     : {_target_: src.data.imu.bones_seed_processed.Bones_Seed_SOMA_Processed_IMU_w_Lang, target_sensors: ["pelvis"]}
+      root       : "${machine-conf:cache_root}/bones_seed_soma_processed_v4"
+      stems      : src/config/data/stems/bones_segments/bones_soma_train.txt
+      layers     : ["${data.bones_soma_t.train}", "${data.window.train}"]
+
+  valid:
+    - _target_   : src.data.util.build_corpus
+      _recursive_: false
+      reader     : {_target_: src.data.imu.bones_seed_processed.Bones_Seed_SOMA_Processed_IMU_w_Lang, target_sensors: ["pelvis"]}
+      root       : "${machine-conf:cache_root}/bones_seed_soma_processed_v4"
+      stems      : src/config/data/stems/bones_segments/bones_soma_valid.txt
+      layers     : ["${data.bones_soma_t.valid}", "${data.window.valid}"]
+
+wandb:
+  runid: Exp9_TLIO_bones_soma

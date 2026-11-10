@@ -1,0 +1,54 @@
+# human_xsens_real_disturb with a joint-stream corruption block after AddImpact in both splits, for
+# root-IMU + joint samples (IMUJointData). See src/data/imu/transform_root_joint.py.
+train:
+  - _target_: src.data.imu.transform.AddGravity
+  - _target_: src.data.imu.transform.RandomEmbodimentScale
+    scale_range: [0.75, 1.0]        # shrink human -> humanoid size
+  - _target_: src.data.imu.transform.RandomTimeWarp
+    speed_range: [0.7, 1.3]         # span the humanoid's slower motion and faster human motion
+  - _target_: src.data.imu.transform.AddNoise
+    acc_noise_density : 1.e-2
+    gyro_noise_density: 3.e-4
+  - _target_: src.data.imu.transform.AddBias
+    acc_bias_randwalk : 5.e-4
+    gyro_bias_randwalk: 5.e-5
+  - _target_: src.data.imu.transform.AddVibration
+  - _target_: src.data.imu.transform.AddImpact
+  # Joint stream: vibration/impact first so their motion envelopes read clean rates.
+  - _target_: src.data.imu.transform_root_joint.AddJointVibration
+  - _target_: src.data.imu.transform_root_joint.AddJointImpact
+  - _target_: src.data.imu.transform_root_joint.AddJointNoise
+    angle_noise_density: 1.5e-3      # rad/sqrt(Hz)
+    rate_noise_density : 7.e-2       # (rad/s)/sqrt(Hz)
+  - _target_: src.data.imu.transform_root_joint.AddJointBias
+    angle_bias_randwalk: 5.e-4       # rad/sqrt(s)
+    rate_bias_randwalk : 5.e-3       # (rad/s)/sqrt(s)
+    angle_bias_init_std: 5.e-3       # rad, per-joint constant encoder offset
+  - _target_: src.data.imu.transform.RandomFrequencyReduction
+    freq_range: [120., 240.]        # 238/240Hz corpora draw m in {1,2}; a no-op at SOMA's 120Hz
+  - _target_: src.data.imu.transform.AddTimestampJitter
+    cv_range  : [0., 0.15]          # capped at the real robot's spacing CV
+  - _target_: src.data.imu.transform.DeterministicDropDevice   # 17 -> 12 humanoid sites
+
+valid:
+  # No scale/time-warp: valid uses fixed ranges so metrics stay epoch-stable.
+  - _target_: src.data.imu.transform.AddGravity
+  - _target_: src.data.imu.transform.AddNoise
+    acc_noise_density : 1.e-2
+    gyro_noise_density: 3.e-4
+  - _target_: src.data.imu.transform.AddBias
+    acc_bias_randwalk : 5.e-4
+    gyro_bias_randwalk: 5.e-5
+  - _target_: src.data.imu.transform.AddVibration
+  - _target_: src.data.imu.transform.AddImpact
+  # Joint stream: vibration/impact first so their motion envelopes read clean rates.
+  - _target_: src.data.imu.transform_root_joint.AddJointVibration
+  - _target_: src.data.imu.transform_root_joint.AddJointImpact
+  - _target_: src.data.imu.transform_root_joint.AddJointNoise
+    angle_noise_density: 1.5e-3      # rad/sqrt(Hz)
+    rate_noise_density : 7.e-2       # (rad/s)/sqrt(Hz)
+  - _target_: src.data.imu.transform_root_joint.AddJointBias
+    angle_bias_randwalk: 5.e-4       # rad/sqrt(s)
+    rate_bias_randwalk : 5.e-3       # (rad/s)/sqrt(s)
+    angle_bias_init_std: 5.e-3       # rad, per-joint constant encoder offset
+  - _target_: src.data.imu.transform.DeterministicDropDevice

@@ -1,0 +1,21 @@
+[submodule "assets/unitree"]
+	path = assets/unitree
+	url = https://github.com/unitreerobotics/unitree_ros.git
+[submodule "thirdparty/airimu"]
+	path = thirdparty/airimu
+	url = https://github.com/haleqiu/AirIMU
+[submodule "thirdparty/airio"]
+	path = thirdparty/airio
+	url = https://github.com/Air-IO/Air-IO
+[submodule "thirdparty/imagebind"]
+	path = thirdparty/imagebind
+	url = https://github.com/facebookresearch/ImageBind.git
+[submodule "thirdparty/imu2clip"]
+	path = thirdparty/imu2clip
+	url = https://github.com/facebookresearch/imu2clip.git
+[submodule "thirdparty/tartanimu"]
+	path = thirdparty/tartanimu
+	url = https://github.com/superxslam/TartanIMU.git
+[submodule "thirdparty/tlio"]
+	path = thirdparty/tlio
+	url = https://github.com/CathIAS/TLIO.git

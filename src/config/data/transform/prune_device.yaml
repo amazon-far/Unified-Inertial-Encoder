@@ -1,0 +1,6 @@
+# Site-set prune only, no corruption, for real-signal corpora (SuperOdom G1): a corruption stack would add
+# gravity twice, and `empty` would skip the prune and leave a different site set from every other corpus.
+train: &stack
+  - _target_: src.data.imu.transform.DeterministicDropDevice
+
+valid: *stack

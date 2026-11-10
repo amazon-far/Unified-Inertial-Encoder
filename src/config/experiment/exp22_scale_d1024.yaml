@@ -1,0 +1,19 @@
+# @package _global_
+# EXP22-d1024: model-size point of the scaling sweep, exp15_full_train_C with token_dim 1024.
+# Usage: python -m src.train experiment=exp22_scale_d1024
+defaults:
+  - exp15_full_train_C
+
+model:
+  token_dim         : 1024
+  feature_from_trunk: [3, 5, 7]
+  trunk:
+    layer     : 8
+    layer_type: [device, full, device, full, device, full, device, full]
+    num_heads : 8
+
+trainer:
+  max_epochs: 40
+
+wandb:
+  runid: Exp22_Scale_d1024

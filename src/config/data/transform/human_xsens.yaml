@@ -1,0 +1,25 @@
+# Domain-alignment stack for the XSens human corpora, pulling them onto the humanoid (G1) reference.
+# Order matters: gravity, rescaling, noise/bias, then device pruning (AddBias knots use the full device count).
+train:
+  - _target_: src.data.imu.transform.AddGravity
+  - _target_: src.data.imu.transform.RandomEmbodimentScale
+    scale_range: [0.75, 1.0]        # shrink human -> humanoid size
+  - _target_: src.data.imu.transform.RandomTimeWarp
+    speed_range: [0.7, 1.3]         # span the humanoid's slower motion and faster human motion
+  - _target_: src.data.imu.transform.AddNoise
+    acc_noise_density : 1.e-2
+    gyro_noise_density: 3.e-4
+  - _target_: src.data.imu.transform.AddBias
+    acc_bias_randwalk : 5.e-4
+    gyro_bias_randwalk: 5.e-5
+  - _target_: src.data.imu.transform.DeterministicDropDevice   # 17 -> 12 humanoid sites
+
+valid:
+  - _target_: src.data.imu.transform.AddGravity
+  - _target_: src.data.imu.transform.AddNoise
+    acc_noise_density : 1.e-2
+    gyro_noise_density: 3.e-4
+  - _target_: src.data.imu.transform.AddBias
+    acc_bias_randwalk : 5.e-4
+    gyro_bias_randwalk: 5.e-5
+  - _target_: src.data.imu.transform.DeterministicDropDevice

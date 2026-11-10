@@ -1,0 +1,29 @@
+# @package _global_
+# EXP9: TLIO baseline on Nymeria, pelvis IMU only.
+# Usage: python -m src.train_tlio experiment=exp9_tlio_baseline_nymeria
+defaults:
+  - override /data/transform@data.nymeria_t: human_xsens_real_disturb
+
+data:
+  train:
+    - _target_   : src.data.util.build_corpus
+      _recursive_: false
+      reader     :
+        _target_      : src.data.imu.nymeria_processed_lang.Nymeria_XSens_Processed_IMU_Language
+        target_sensors: ["pelvis"]
+      root       : "${machine-conf:cache_root}/nymeria_imu_processed_v3"
+      stems      : src/config/data/stems/nymeria_train.txt
+      layers     : ["${data.nymeria_t.train}", "${data.window.train}"]
+
+  valid:
+    - _target_   : src.data.util.build_corpus
+      _recursive_: false
+      reader     :
+        _target_      : src.data.imu.nymeria_processed_lang.Nymeria_XSens_Processed_IMU_Language
+        target_sensors: ["pelvis"]
+      root       : "${machine-conf:cache_root}/nymeria_imu_processed_v3"
+      stems      : src/config/data/stems/nymeria_valid.txt
+      layers     : ["${data.nymeria_t.valid}", "${data.window.valid}"]
+
+wandb:
+  runid: Exp9_TLIO_nymeria

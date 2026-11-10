@@ -1,0 +1,17 @@
+# IMUnet's JointsAirIONetworkIMUOnly (thirdparty/IMUnet/Model/airio.py): pelvis IMU + joints -> body velocity
+# + full covariance. `num_joints` counts scalar joints: 33 for the 11 so3 relative joints, 29 for G1 encoders.
+_target_   : src.model.airio_joints.AirIOJoints
+window_size: ${data_conf.window_size}
+num_joints : 33
+joint_channels: [position, velocity]
+k_list: [7, 7]
+s_list: [3, 3]
+p_list: [3, 3]
+imu_encoder_channels  : [32, 64]
+joint_encoder_channels: [32, 64]
+fusion_dim    : 64
+fusion_hidden : 128
+gru1_hidden   : 64
+gru2_hidden   : 128
+decoder_hidden: 128
+bidirectional : true
