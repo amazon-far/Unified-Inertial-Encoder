@@ -60,7 +60,7 @@ the paper's analyses.
 1. **Clone the repository**
 
     ```bash
-    git clone --recursive https://github.com/unified-inertial-encoder/Unified-Inertial-Encoder.git
+    git clone --recursive https://github.com/amazon-far/Unified-Inertial-Encoder.git
     cd Unified-Inertial-Encoder
     ```
 
